@@ -1,7 +1,7 @@
 # compiler
-CXX = g++
+CXX := g++
 # compiler flags
-CFLAGS = -std=c++11
+CFLAGS := -std=c++11
 # libraries
 LIBS :=
 # all of the .cpp files
@@ -13,7 +13,7 @@ MODULES := include include/helpers include/patterns include/RakNet
 # Includes all of the module's module.mk files
 include $(patsubst %, %/module.mk, $(MODULES))
 
-BINARY = brojam.out
+BINARY := brojam.out
 
 .PHONY: clean
 .PHONY: travis

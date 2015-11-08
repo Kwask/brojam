@@ -3,14 +3,10 @@
 #include "State.h"
 
 FSM::FSM()
-{
-	state_ = nullptr;
-}
+	: state_( nullptr ) {}
 
 FSM::FSM( State* const state )
-{
-	state_ = state;
-}
+	: state_( state ) {};
 
 FSM::~FSM()
 {

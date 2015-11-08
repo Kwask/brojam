@@ -1,56 +1,48 @@
-CC = g++
-
+# compiler
+CXX = g++
 # compiler flags
 CFLAGS = -std=c++11 -Wall
+# linker flags 
+LFLAGS = -lGLEW -lglfw3 -lGL -lX11 -lXi -lXrandr -lXxf86vm -lXinerama -lXcursor -lrt -lm -pthread 
 
-# the different directories
-IDIR = ./include
-ODIR = ./obj
-DDIR = ./doc
-BDIR = ./bin
+# compiling list of object files
+MAIN_SRC = $(*.cpp)
+MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
 
-# top level files
-SRC = main.cpp 
+INCLUDE_SRC = $(wildcard include/*.cpp)
+RAKNET_SRC = $(wildcard include/RakNet/*.cpp)
+HELPERS_SRC = $(wildcard include/helpers/*.cpp)
+PATTERNS_SRC = $(wildcard include/patterns/*.cpp)
 
-# all .h files without directory
-_DEPH = 
-# all .cpp files without directory
-_DEPSRC = $(_DEPH:.h=.cpp)
+SRCS = $(MAIN_SRC) $(INCLUDE_SRC) $(RAKNET_SRC) $(HELPERS_SRC) $(PATTERNS_SRC) 
 
-# all .h files with directory
-DEPH = $(patsubst %,$(IDIR)/%,$(_DEPH))
-# all .cpp files with directory
-DEPSRC = $(patsubst %,$(IDIR)/%,$(_DEPSRC))
+OBJS = $(SRCS:.cpp=.o)
 
-# all source files without directory and all header files with directory
-_FILES = $(SRC) $(_DEPSRC) $(DEPH)
-# all files with directory
-FILES = $(SRC) $(DEPSRC) $(DEPH)
-
-# .o filenames with directory
-OBJS = $(_FILES:.cpp=.o)
-
-# the linker flags for the compiler
-LINKER_FLAGS = -lGLEW -lglfw3 -lGL -lX11 -lXi -lXrandr -lXxf86vm -lXinerama -lXcursor -lrt -lm -pthread
-
-# the output file
-LINUX_BIN = wildlife.out
-ERRORS_FILE = errors.txt
+BINARY = brojam.out
 
 .PHONY: clean
 .PHONY: travis
 
 #Compile(output into error.txt if there is an error), link, then run
 # CXX defined in .travis.yml and build.sh
-linux:
+linux: 
 	@echo "Generating Linux build"
 	@echo "--------------------"
 	@echo "Environment: `uname -a`"
 	@echo "Compiler: `$(CXX) --version`"
 	@echo "--------------------"
-	@$(CC) $(CFLAGS) -c $(FILES) 
+
+	@echo "Compiling objects in include/"
+	@make -f include/Makefile
+	@echo "Compiling objects in include/helpers"
+	@make -f include/helpers/Makefile
+	@echo "Compiling objects in include/patterns"
+	@make -f include/patterns/Makefile
+	@echo "Compiling objects in include/RakNet"
+	@make -f include/RakNet/Makefile
+
 	@echo "Object compilation complete"
-	@$(CC) $(CFLAGS) $(OBJS) -o $(BDIR)/$(LINUX_BIN) $(LINKER_FLAGS)
+	@$(CXX) $(CFLAGS) $(OBJS) -o $(BINARY) $(LFLAGS)
 	@echo "Binary file generated"
 
 clean:
@@ -62,7 +54,12 @@ travis:
 	@echo "Environment: `uname -a`"
 	@echo "Compiler: `$(CXX) --version`"
 	@echo "--------------------"
-	@$(CXX) $(CFLAGS) -c $(FILES) 
+
+	@make -f include/Makefile
+	@make -f include/helpers/Makefile
+	@make -f include/patterns/Makefile
+	@make -f include/RakNet/Makefile
+
 	@echo "Object compilation complete"
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(BDIR)/$(LINUX_BIN) $(LINKER_FLAGS)
+	@$(CXX) $(CFLAGS) $(OBJS) -o $(BINARY) $(LFLAGS)
 	@echo "Binary file generated"

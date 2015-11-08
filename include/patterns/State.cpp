@@ -4,8 +4,3 @@ State::~State()
 {
 	
 }
-
-char const* State::getName()
-{
-	return name;
-}

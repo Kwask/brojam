@@ -1,3 +1,6 @@
+#ifndef COORD_H
+#define COORD_H
+
 struct Coord
 {
 	Coord();
@@ -14,3 +17,5 @@ struct Coord
 	Coord operator-( Coord const b ) const;
 	Coord operator=( Coord const b ) const;
 };
+
+#endif

@@ -2,13 +2,15 @@
 CXX = g++
 # compiler flags
 CFLAGS = -std=c++11
-# linker flags 
-LFLAGS :=
-MODULES := include include/helpers include/patterns include/RakNet
-
+# libraries
 LIBS :=
+# all of the .cpp files
 SRC := main.cpp
 
+# All of the folders with a module.mk file
+MODULES := include include/helpers include/patterns include/RakNet
+
+# Includes all of the module's module.mk files
 include $(patsubst %, %/module.mk, $(MODULES))
 
 BINARY = brojam.out
@@ -24,7 +26,7 @@ linux:
 	@echo "Environment: `uname -a`"
 	@echo "Compiler: `$(CXX) --version`"
 	@echo "--------------------"
-
+	# TODO: Object compilation
 	@echo "Object compilation complete"
 	@$(CXX) $(CFLAGS) $(SRC) -o $(BINARY) $(LIBS)
 	@echo "Binary file generated"
@@ -38,7 +40,7 @@ travis:
 	@echo "Environment: `uname -a`"
 	@echo "Compiler: `$(CXX) --version`"
 	@echo "--------------------"
-
+	# TODO: Object compilation
 	@echo "Object compilation complete"
 	@$(CXX) $(CFLAGS) $(OBJS) -o $(BINARY) $(LIBS)
 	@echo "Binary file generated"

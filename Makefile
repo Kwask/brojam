@@ -1,22 +1,15 @@
 # compiler
 CXX = g++
 # compiler flags
-CFLAGS = -std=c++11 -Wall
+CFLAGS = -std=c++11
 # linker flags 
-LFLAGS = -lGLEW -lglfw3 -lGL -lX11 -lXi -lXrandr -lXxf86vm -lXinerama -lXcursor -lrt -lm -pthread 
+LFLAGS :=
+MODULES := include include/helpers include/patterns include/RakNet
 
-# compiling list of object files
-MAIN_SRC = $(*.cpp)
-MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
+LIBS :=
+SRC := main.cpp
 
-INCLUDE_SRC = $(wildcard include/*.cpp)
-RAKNET_SRC = $(wildcard include/RakNet/*.cpp)
-HELPERS_SRC = $(wildcard include/helpers/*.cpp)
-PATTERNS_SRC = $(wildcard include/patterns/*.cpp)
-
-SRCS = $(MAIN_SRC) $(INCLUDE_SRC) $(RAKNET_SRC) $(HELPERS_SRC) $(PATTERNS_SRC) 
-
-OBJS = $(SRCS:.cpp=.o)
+include $(patsubst %, %/module.mk, $(MODULES))
 
 BINARY = brojam.out
 
@@ -32,17 +25,8 @@ linux:
 	@echo "Compiler: `$(CXX) --version`"
 	@echo "--------------------"
 
-	@echo "Compiling objects in include/"
-	@make -f include/Makefile
-	@echo "Compiling objects in include/helpers"
-	@make -f include/helpers/Makefile
-	@echo "Compiling objects in include/patterns"
-	@make -f include/patterns/Makefile
-	@echo "Compiling objects in include/RakNet"
-	@make -f include/RakNet/Makefile
-
 	@echo "Object compilation complete"
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(BINARY) $(LFLAGS)
+	@$(CXX) $(CFLAGS) $(SRC) -o $(BINARY) $(LIBS)
 	@echo "Binary file generated"
 
 clean:
@@ -55,11 +39,6 @@ travis:
 	@echo "Compiler: `$(CXX) --version`"
 	@echo "--------------------"
 
-	@make -f include/Makefile
-	@make -f include/helpers/Makefile
-	@make -f include/patterns/Makefile
-	@make -f include/RakNet/Makefile
-
 	@echo "Object compilation complete"
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(BINARY) $(LFLAGS)
+	@$(CXX) $(CFLAGS) $(OBJS) -o $(BINARY) $(LIBS)
 	@echo "Binary file generated"

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Debug.h"
+#include "debug.h"
  
 void debugging( std::string message )
 {

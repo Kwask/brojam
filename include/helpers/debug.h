@@ -3,7 +3,7 @@
 
 #include <string>
 
-#define DEBUG true; // set to true to enable debug messages
+const bool DEBUG = true; // set to true to enable debug messages
 
 // displays a debug message if debug mode is active
 void debugging( std::string message );

@@ -1,0 +1,2 @@
+SRC += include/patterns/*.cpp
+

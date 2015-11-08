@@ -26,8 +26,6 @@ public:
 	void forceState( State* const state ); // Call this to force the state machine to assume the given state
 
 	State* const currentState(); // Returns the current state
-	
-	char const* getStateName(); // Returns the name of the current state
 };
 
 #endif

@@ -1,4 +1,3 @@
-#include "Debug.h"
 #include "FSM.h"
 #include "State.h"
 
@@ -41,7 +40,3 @@ State* const FSM::currentState()
 	return state_;
 }
 
-char const* FSM::getStateName()
-{
-	return state_->getName();
-}

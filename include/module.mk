@@ -1,5 +1,4 @@
 SRC += include/Atom.cpp \
-	   include/Client.cpp \
 	   include/Coord.cpp \
 	   include/Engine.cpp \
 	   include/EngineFSM.cpp \

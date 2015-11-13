@@ -32,16 +32,6 @@ EngineProcess::~EngineProcess() {}
 
 void EngineProcess::cleanup() {}
 
-void EngineProcess::addToContents( Atom* atom )
-{
-	contents.push_back( atom );
-}
-
-void EngineProcess::removeFromContents( Atom* atom )
-{
-	eraseRemove<Atom*>( &contents, atom );
-}
-
 State* EngineProcess::handle()
 {
 	return &EngineFSM::poll;

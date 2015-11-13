@@ -8,7 +8,7 @@ LIBS :=
 SRC := main.cpp
 
 # All of the folders with a module.mk file
-MODULES := include include/helpers include/patterns include/RakNet
+MODULES := include include/helpers include/patterns
 
 # Includes all of the module's module.mk files
 include $(patsubst %, %/module.mk, $(MODULES))

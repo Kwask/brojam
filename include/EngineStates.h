@@ -18,8 +18,6 @@ public:
 
 class EngineProcess : public State
 {
-protected:
-	std::vector<Atom*> contents;
 public:
 	~EngineProcess();
 	

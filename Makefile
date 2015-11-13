@@ -11,7 +11,7 @@ SRC := main.cpp
 MODULES := include include/helpers include/patterns
 
 # Includes all of the module's module.mk files
-include $(patsubst %, %/module.mk, $(MODULES))
+include $(patsubst %, %/_module.mk, $(MODULES))
 
 BINARY := brojam.out
 

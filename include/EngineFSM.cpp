@@ -10,6 +10,6 @@ EngineFSM::EngineFSM( State* const state )
 EngineStart EngineFSM::start;
 EngineProcess EngineFSM::process;
 EnginePoll EngineFSM::poll;
-EngineRender EngineFSM::render;
+EngineRender EngineFSM::render( 800, 600 );
 EngineStop EngineFSM::stop;
 

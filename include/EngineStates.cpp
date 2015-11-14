@@ -16,11 +16,20 @@ State* EngineStart::handle()
 	glfwInit();
 	debugging( "GLFW INITIALIZED" );
 
-	EngineFSM::render.window = glfwCreateWindow( EngineFSM::render.window_width, EngineFSM::render.window_height, "Brojam", nullptr, nullptr );
-	glfwMakeContextCurrent( EngineFSM::render.window );
+	GLFWwindow* window = glfwCreateWindow( EngineFSM::render.getWindowWidth(), 
+												 EngineFSM::render.getWindowHeight(), 
+												 "Brojam", 
+												 nullptr, 
+												 nullptr );
+	EngineFSM::render.setWindow( window );
 
-	glfwSetWindowSizeCallback( EngineFSM::render.window, GLFWResize );
-	GLFWResize( EngineFSM::render.window, EngineFSM::render.window_width, EngineFSM::render.window_height );
+	glfwMakeContextCurrent( EngineFSM::render.getWindow() );
+
+	glfwSetWindowSizeCallback( EngineFSM::render.getWindow(), GLFWResize );
+	GLFWResize( EngineFSM::render.getWindow(),
+				EngineFSM::render.getWindowWidth(), 
+				EngineFSM::render.getWindowHeight() );
+
 
 	glfwSwapInterval( 1 );
 
@@ -47,7 +56,7 @@ State* EnginePoll::handle()
 	glfwPollEvents();
 
 	// If the window exit button was pressed, tansition to stop
-	if( glfwWindowShouldClose( EngineFSM::render.window ))
+	if( glfwWindowShouldClose( EngineFSM::render.getWindow() ))
 	{
 		debugging("WINDOW CLOSING.");
 		return &EngineFSM::stop;
@@ -57,6 +66,9 @@ State* EnginePoll::handle()
 }
 
 // EngineRender
+EngineRender::EngineRender( int width, int height )
+	: dimensions( width, height ) {}
+
 EngineRender::~EngineRender() {}
 
 void EngineRender::cleanup() {}
@@ -64,6 +76,36 @@ void EngineRender::cleanup() {}
 void EngineRender::populateVerticeVector()
 {
 	
+}
+
+void EngineRender::setWindow( GLFWwindow* window )
+{
+	destroyWindow();
+	this->window = window;
+}
+
+void EngineRender::destroyWindow()
+{
+	if( window )
+	{
+		glfwDestroyWindow( window );
+		window = nullptr;
+	}
+}
+
+int EngineRender::getWindowWidth()
+{
+	return dimensions.x;
+}
+
+int EngineRender::getWindowHeight()
+{
+	return dimensions.y;
+}
+
+GLFWwindow* EngineRender::getWindow()
+{
+	return window;
 }
 
 State* EngineRender::handle()
@@ -100,13 +142,9 @@ State* EngineStop::handle()
 {
 	debugging("ENGINE STOPPING...");
 
-	// If there's a window, destroy it and terminate GLFW
-	if( EngineFSM::render.window )
-	{
-		glfwDestroyWindow( EngineFSM::render.window );
-		glfwTerminate();
-		debugging("GLFW TERMINATED.");
-	}
+	EngineFSM::render.destroyWindow();
+	glfwTerminate();
+	debugging("GLFW TERMINATED.");
 
 	debugging("ENGINE STOPPED.");
 	return nullptr;

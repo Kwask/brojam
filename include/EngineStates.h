@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include "patterns/State.h"
 #include "Atom.h"
+#include "Coord.h"
 
 class EngineStart : public State
 {
@@ -42,18 +43,25 @@ public:
 class EngineRender : public State
 {
 private:
-	std::vector<float> vertices;
-
-public:
-	int window_width = 800;
-	int window_height = 600;
+	Coord dimensions;
 
 	GLFWwindow* window = nullptr;
 
+	std::vector<float> vertices;
+
+public:
+	EngineRender( int width, int height ); // Window width and height
 	~EngineRender();
 
 	void cleanup();
 	void populateVerticeVector();
+	void setWindow( GLFWwindow* window );
+	void destroyWindow();
+
+	int getWindowWidth();
+	int getWindowHeight();
+
+	GLFWwindow* getWindow();
 
 	State* handle();
 };

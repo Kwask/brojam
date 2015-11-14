@@ -1,6 +1,7 @@
 #ifndef ATOM_H
 #define ATOM_H
 
+#include <string>
 #include <vector>
 #include "Rect.h"
 
@@ -11,6 +12,7 @@ protected:
 	Rect origin; // Used to draw any textures
 	Rect bounds; // Used for collision detection
 
+	std::string name;
 	static std::vector<Atom*> atoms;
 
 public:

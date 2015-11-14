@@ -13,12 +13,12 @@ Atom::Atom()
 Atom::Atom( Rect orig, Rect bnds )
 	: origin( orig ), bounds( bnds )
 {
-	atoms.push_back( this );	
+	atoms.push_back( this ); // Adding this object to the global list of atoms
 }
 
 Atom::~Atom()
 {
-	eraseRemove( atoms, this );	
+	eraseRemove( atoms, this ); // Removing this object from the atoms list	
 }
 
 

@@ -3,23 +3,31 @@
 
 #include <string>
 #include <vector>
+#include <GLFW/glfw3.h>
 #include "Rect.h"
 
 // Abstract class used as the base for all objects
 class Atom
 {
 protected:
-	Rect origin; // Used to draw any textures
-	Rect bounds; // Used for collision detection
+	static std::vector<Atom*> atoms;
+
+	bool visible = true; // should this be drawn?
+
+	int draw_mode = GL_TRIANGLE_FAN;
 
 	std::string name;
-	static std::vector<Atom*> atoms;
+
+	std::vector<float> vertices;
+
+	Rect bounds; // Used for collision detection
 
 public:
 	Atom();
-	Atom( Rect orig, Rect bnds ); 
+	Atom( Rect bnds ); 
 	~Atom();
 
+	void render();
 };
 
 #endif

@@ -3,7 +3,9 @@ SRC += include/Atom.cpp \
 	   include/Engine.cpp \
 	   include/EngineFSM.cpp \
 	   include/EngineStates.cpp \
-	   include/Rect.cpp
+	   include/Rect.cpp \
+	   include/Mob.cpp \
+	   include/Planet.cpp 
 
 LIBS += -lGLEW \
 		-lglfw3 \

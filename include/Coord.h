@@ -5,11 +5,11 @@ struct Coord
 {
 	Coord();
 	Coord( Coord* copy );
-	Coord( int x, int y );
+	Coord( float x, float y );
 	~Coord();
 
-	int x;
-	int y;
+	float x;
+	float y;
 
 	bool operator==( Coord const b ) const;
 

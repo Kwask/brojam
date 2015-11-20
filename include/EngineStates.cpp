@@ -5,6 +5,7 @@
 #include "helpers/GLFWFuncs.h"
 #include "helpers/debug.h"
 #include "helpers/misc.h"
+#include "Mob.h"
 
 // Engine stop
 EngineStart::~EngineStart() {}
@@ -43,6 +44,8 @@ void EngineProcess::cleanup() {}
 
 State* EngineProcess::handle()
 {
+	Mob::processMobs(); // Does all of the processing for mobs
+
 	return &EngineFSM::poll;
 }
 

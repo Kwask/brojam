@@ -6,7 +6,7 @@ Coord::Coord()
 Coord::Coord( Coord* copy )
 	: x( copy->x ), y( copy->y ) {}
 
-Coord::Coord( int xPos, int yPos )
+Coord::Coord( float xPos, float yPos )
 	: x( xPos ), y( yPos ) {}
 
 Coord::~Coord() {}

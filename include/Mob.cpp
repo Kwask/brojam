@@ -24,5 +24,5 @@ Mob::~Mob()
 
 void Mob::handle()
 {
-
+	
 }

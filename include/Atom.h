@@ -23,6 +23,8 @@ protected:
 	Rect bounds; // Used for collision detection
 
 public:
+	static void renderAtoms();
+
 	Atom();
 	Atom( Rect bnds ); 
 	~Atom();

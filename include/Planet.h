@@ -8,10 +8,11 @@ class Planet : public Atom
 protected:
 	float radius = 10;
 
-private:
+	void generateVertices();
+
+public:
 	Planet();
 
-	void generateVertices();
 };
 
 #endif

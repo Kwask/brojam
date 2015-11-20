@@ -6,6 +6,8 @@
 #include "helpers/debug.h"
 #include "helpers/misc.h"
 #include "Mob.h"
+#include "Atom.h"
+#include "Planet.h"
 
 // Engine stop
 EngineStart::~EngineStart() {}
@@ -33,6 +35,8 @@ State* EngineStart::handle()
 
 
 	glfwSwapInterval( 1 );
+
+	new Planet;
 
 	return &EngineFSM::process;
 }
@@ -115,20 +119,11 @@ State* EngineRender::handle()
 {
 	int dimensions = 2; // how many dimensions are we working in?
 
-	// Populates the vector of vertices to be drawn
-	populateVerticeVector();
-
 	// Moves everything backward by -1 opengl unit
 	glTranslatef( 0.f, 0.f, -1.f );
 
-	glEnableClientState( GL_VERTEX_ARRAY );
-
-	// Specifies the vertice data
-	glVertexPointer( dimensions, GL_FLOAT, 0, vertices.data() );
-	// Draws the given vertice data
-	glDrawArrays( GL_TRIANGLES, 0, vertices.size()/dimensions );
-
-	glDisableClientState( GL_VERTEX_ARRAY );
+	// Draw all atoms
+	Atom::renderAtoms();
 
 	// Displays what was just drawn to the screen
 	glfwSwapBuffers( window );

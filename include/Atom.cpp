@@ -6,6 +6,17 @@
 
 std::vector<Atom*> Atom::atoms;
 
+void Atom::renderAtoms()
+{
+	for( std::vector<Atom*>::iterator it = atoms.begin(); it != atoms.end(); ++it )
+	{
+		if( (*it)->visible )
+		{
+			(*it)->render();
+		}
+	}	
+}
+
 Atom::Atom() 
 {
 	atoms.push_back( this );

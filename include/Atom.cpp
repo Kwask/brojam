@@ -37,7 +37,6 @@ Atom::Atom( Rect bnds )
 	: bounds( bnds )
 {
 	atoms.push_back( this ); // Adding this object to the global list of atoms
-	debugging( "Atom created!" );
 }
 
 Atom::~Atom() {}

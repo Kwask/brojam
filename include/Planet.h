@@ -6,13 +6,12 @@
 class Planet : public Atom
 {
 protected:
-	float radius = 10;
+	float radius = 100;
 
 	void generateVertices();
 
 public:
 	Planet();
-
 };
 
 #endif

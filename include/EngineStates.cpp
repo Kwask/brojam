@@ -140,6 +140,8 @@ State* EngineStop::handle()
 {
 	debugging("ENGINE STOPPING...");
 
+	Atom::deleteAtoms();
+
 	EngineFSM::render.destroyWindow();
 	glfwTerminate();
 	debugging("GLFW TERMINATED.");

@@ -24,12 +24,15 @@ protected:
 
 public:
 	static void renderAtoms();
+	static void deleteAtoms();
 
 	Atom();
 	Atom( Rect bnds ); 
 	~Atom();
 
 	void render();
+	void del();
+	void removeAndDel();
 };
 
 #endif

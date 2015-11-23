@@ -5,9 +5,11 @@
 #include "helpers/GLFWFuncs.h"
 #include "helpers/debug.h"
 #include "helpers/misc.h"
+#include "helpers/defines.h"
 #include "Mob.h"
 #include "Atom.h"
 #include "Planet.h"
+#include "Rect.h"
 
 // Engine stop
 EngineStart::~EngineStart() {}
@@ -36,7 +38,8 @@ State* EngineStart::handle()
 
 	glfwSwapInterval( 1 );
 
-	new Planet;
+	Rect planet( 300, 300, 0, 0 );
+	new Planet( planet );
 
 	return &EngineFSM::process;
 }
@@ -80,11 +83,6 @@ EngineRender::~EngineRender() {}
 
 void EngineRender::cleanup() {}
 
-void EngineRender::populateVerticeVector()
-{
-	
-}
-
 void EngineRender::setWindow( GLFWwindow* window )
 {
 	destroyWindow();
@@ -117,7 +115,9 @@ GLFWwindow* EngineRender::getWindow()
 
 State* EngineRender::handle()
 {
-	int dimensions = 2; // how many dimensions are we working in?
+	glLoadIdentity();
+	glClear( GL_COLOR_BUFFER_BIT );
+	glClearColor( 0.f/MAX_COLOR_NUM, 81.f/MAX_COLOR_NUM, 102.f/MAX_COLOR_NUM, 1.f );
 
 	// Moves everything backward by -1 opengl unit
 	glTranslatef( 0.f, 0.f, -1.f );

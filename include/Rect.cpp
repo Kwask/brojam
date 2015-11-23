@@ -3,8 +3,8 @@
 
 Rect::Rect() {}
 
-Rect::Rect( Rect* copy )
-	: origin( copy->origin ), bounds( copy->bounds ) {}
+Rect::Rect( Rect& copy )
+	: origin( copy.origin ), bounds( copy.bounds ) {}
 
 Rect::Rect( int xPos, int yPos, int width, int height )
 	: origin( xPos, yPos ), bounds( width, height ) {}

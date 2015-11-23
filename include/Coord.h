@@ -4,7 +4,7 @@
 struct Coord
 {
 	Coord();
-	Coord( Coord* copy );
+	Coord( const Coord& copy );
 	Coord( float x, float y );
 	~Coord();
 

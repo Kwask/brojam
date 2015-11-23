@@ -20,14 +20,14 @@ protected:
 
 	std::vector<float> vertices;
 
-	Rect bounds; // Used for collision detection
+	Rect bounds; // Used for object placement + collision detection
 
 public:
 	static void renderAtoms();
 	static void deleteAtoms();
 
 	Atom();
-	Atom( Rect bnds ); 
+	Atom( Rect& bnds );	
 	~Atom();
 
 	void render();

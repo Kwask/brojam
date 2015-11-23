@@ -11,7 +11,7 @@ private:
 
 public:
 	Rect();
-	Rect( Rect* copy );
+	Rect( Rect& copy );
 	Rect( int x, int y, int width, int height );
 	Rect( const Coord origin, const Coord bound );
 	~Rect();

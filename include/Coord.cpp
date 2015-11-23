@@ -3,8 +3,8 @@
 Coord::Coord() 
 	: x( 0 ), y( 0 ) {}
 
-Coord::Coord( Coord* copy )
-	: x( copy->x ), y( copy->y ) {}
+Coord::Coord( const Coord& copy )
+	: x( copy.x ), y( copy.y ) {}
 
 Coord::Coord( float xPos, float yPos )
 	: x( xPos ), y( yPos ) {}

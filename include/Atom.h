@@ -17,7 +17,7 @@ protected:
 
 	int draw_mode = GL_LINE_STRIP;
 
-	float angle = 0; // 0 is facing up
+	float angle = 0; // 0 is facing right
 
 	std::vector<float> vertices;
 

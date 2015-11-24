@@ -19,7 +19,7 @@ float Gravity::getPull( float obj_pos, float grav_pos, double multiplier )
 		return acceleration*multiplier*sign( distance );
 	}
 	else
-	{	
+	{
 		return ( 1/sqrt( fabs( distance )))*acceleration*multiplier*sign( distance );
 	}
 }

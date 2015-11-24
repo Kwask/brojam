@@ -32,6 +32,24 @@ inline int sign( T val )
 }
 
 template <typename T>
+inline T sind( T parameter )
+{
+	return sin( parameter*( PI/180.f ));
+}
+
+template <typename T>
+inline T cosd( T parameter )
+{
+	return cos( parameter*( PI/180.f ));
+}
+
+template <typename T>
+inline T tand( T parameter )
+{
+	return tan( parameter*( PI/180.f ));
+}
+
+template <typename T>
 inline T asind( T parameter )
 {
 	return asin( parameter )*180.f/PI;

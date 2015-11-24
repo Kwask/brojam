@@ -13,7 +13,7 @@ protected:
 	static std::vector<Mob*> mobs;
 
 	float max_speed = 500; // Maximum speed in any direction
-	float angular_speed = 0; // Positive is clockwise, negative is counterclockwise
+	float angular_speed = 0; // Positive is countercolockwise, negative is clockwise
 
 	Coord speed; // Vector of speeed
 

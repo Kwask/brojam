@@ -6,7 +6,8 @@ SRC += include/Atom.cpp \
 	   include/Rect.cpp \
 	   include/Mob.cpp \
 	   include/Planet.cpp \
-	   include/Gravity.cpp 
+	   include/Gravity.cpp \
+	   include/Creature.cpp
 
 LIBS += -lGLEW \
 		-lglfw3 \

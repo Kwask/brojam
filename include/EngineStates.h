@@ -21,6 +21,10 @@ class EngineProcess : public State
 {
 protected:
 	const int FRAMES_PER_SECOND = 60;	
+	const float MS_PER_TICK = 1000/FRAMES_PER_SECOND;
+
+	double last_tick = glfwGetTime();
+	double time_lag = 0;
 
 public:
 	~EngineProcess();

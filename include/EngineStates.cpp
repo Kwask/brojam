@@ -22,10 +22,10 @@ State* EngineStart::handle()
 	debugging( "GLFW INITIALIZED" );
 
 	GLFWwindow* window = glfwCreateWindow( EngineFSM::render.getWindowWidth(), 
-												 EngineFSM::render.getWindowHeight(), 
-												 "Brojam", 
-												 nullptr, 
-												 nullptr );
+										   EngineFSM::render.getWindowHeight(), 
+										   "Brojam", 
+										   nullptr, 
+										   nullptr );
 	EngineFSM::render.setWindow( window );
 
 	glfwMakeContextCurrent( EngineFSM::render.getWindow() );
@@ -34,7 +34,6 @@ State* EngineStart::handle()
 	GLFWResize( EngineFSM::render.getWindow(),
 				EngineFSM::render.getWindowWidth(), 
 				EngineFSM::render.getWindowHeight() );
-
 
 	glfwSwapInterval( 1 );
 
@@ -52,9 +51,14 @@ void EngineProcess::cleanup() {}
 
 State* EngineProcess::handle()
 {
+	double current_tick = glfwGetTime();
+	double elapsed_time = current_tick-last_tick;
+	last_tick = current_tick;
 	
-	
-	Mob::processMobs(); // Does all of the processing for mobs
+	for( time_lag += elapsed_time; time_lag >= MS_PER_TICK; time_lag -= MS_PER_TICK )
+	{
+		Mob::processMobs(); // Does all of the processing for mobs
+	}
 
 	return &EngineFSM::poll;
 }

@@ -19,8 +19,8 @@ void Mob::processMobs( double update_multiplier )
 	}
 }
 
-Mob::Mob( Color& clr )
-	: Atom( clr )
+Mob::Mob( Rect& bnds, Color& clr )
+	: Atom( bnds, clr ) 
 {
 	mobs.push_back( this );
 }

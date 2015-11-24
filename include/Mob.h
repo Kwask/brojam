@@ -22,7 +22,7 @@ protected:
 public:
 	static void processMobs( double update_multiplier );
 
-	Mob( Color& clr );
+	Mob( Rect& bnds, Color& clr );
 	~Mob();
 
 	void handle( double update_multiplier );

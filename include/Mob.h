@@ -8,16 +8,14 @@
 class Mob : public Atom
 {
 protected:
-	unsigned char direction; // what direction are we facing?
-
 	static std::vector<Mob*> mobs;
 
-	Coord speed;
+	Coord speed; // Vector of speed
 
 public:
 	static void processMobs();
 
-	Mob();
+	Mob( Color& clr );
 	~Mob();
 
 	void handle();

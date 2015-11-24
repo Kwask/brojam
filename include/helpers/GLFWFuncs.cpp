@@ -1,5 +1,6 @@
 #include <GLFW/glfw3.h>
 #include "GLFWFuncs.h"
+#include "Color.h"
 
 void GLFWResize( GLFWwindow *window, int width, int height )
 {
@@ -11,3 +12,9 @@ void GLFWResize( GLFWwindow *window, int width, int height )
 	glOrtho( 0, width, 0, height, 1.0f, 100.0f );
 	glMatrixMode( GL_MODELVIEW );
 }
+
+void glColor3f( Color& color )
+{
+	glColor3f( color.red, color.green, color.blue );
+}
+

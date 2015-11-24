@@ -5,6 +5,7 @@
 #include <vector>
 #include <GLFW/glfw3.h>
 #include "Rect.h"
+#include "helpers/Color.h"
 
 // Abstract class used as the base for all objects
 class Atom
@@ -14,20 +15,22 @@ protected:
 
 	bool visible = true; // should this be drawn?
 
-	int draw_mode = GL_TRIANGLE_FAN;
+	int draw_mode = GL_LINE_STRIP;
 
 	std::string name;
 
 	std::vector<float> vertices;
 
+	Color color;
+	
 	Rect bounds; // Used for object placement + collision detection
 
 public:
 	static void renderAtoms();
 	static void deleteAtoms();
 
-	Atom();
-	Atom( Rect& bnds );	
+	Atom( Color& clr );
+	Atom( Rect& bnds, Color& clr );	
 	~Atom();
 
 	void render();

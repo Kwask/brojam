@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include "Atom.h"
 #include "EngineFSM.h"
+#include "helpers/GLFWFuncs.h"
 #include "helpers/misc.h"
 #include "helpers/debug.h"
 
@@ -29,13 +30,14 @@ void Atom::deleteAtoms()
 	atoms.clear();
 }
 
-Atom::Atom() 
+Atom::Atom( Color& clr )
+   : color( clr )	
 {
 	atoms.push_back( this );
 }
 
-Atom::Atom( Rect& bnds )
-	: bounds( bnds )
+Atom::Atom( Rect& bnds, Color& clr )
+	: bounds( bnds ), color( clr )
 {
 	atoms.push_back( this );
 }
@@ -44,10 +46,11 @@ Atom::~Atom() {}
 
 void Atom::render()
 {
-	glColor3f( 0.5f, 0.5f, 0.5f );
-
+	glPushAttrib( GL_COLOR_BUFFER_BIT );
 	glPushMatrix();
 	glEnableClientState( GL_VERTEX_ARRAY );
+
+	glColor3f( color );
 
 	glTranslatef( bounds.getOrigin().x, bounds.getOrigin().y, 0.f );
 
@@ -56,8 +59,7 @@ void Atom::render()
 
 	glDisableClientState( GL_VERTEX_ARRAY );
 	glPopMatrix();
-
-	glColor3f( 1.0f, 1.0f, 1.0f );
+	glPopAttrib();
 }
 
 void Atom::del()

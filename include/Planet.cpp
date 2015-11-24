@@ -5,13 +5,14 @@
 #include "Rect.h"
 #include "helpers/defines.h"
 
-Planet::Planet()
+Planet::Planet( Color& clr )
+	: Atom( clr )
 {
 	generateVertices();
 }
 
-Planet::Planet( Rect& bnds )
-	: Atom( bnds ) 
+Planet::Planet( Rect& bnds, Color& clr )
+	: Atom( bnds, clr )
 {
 	generateVertices();
 }	

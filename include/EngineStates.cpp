@@ -39,7 +39,8 @@ State* EngineStart::handle()
 	glfwSwapInterval( 1 );
 
 	Rect planet( 300, 300, 0, 0 );
-	new Planet( planet );
+	Color clr( 0, 255, 0 );
+	new Planet( planet, clr );
 
 	return &EngineFSM::process;
 }
@@ -51,6 +52,8 @@ void EngineProcess::cleanup() {}
 
 State* EngineProcess::handle()
 {
+	
+	
 	Mob::processMobs(); // Does all of the processing for mobs
 
 	return &EngineFSM::poll;
@@ -77,7 +80,7 @@ State* EnginePoll::handle()
 
 // EngineRender
 EngineRender::EngineRender( int width, int height )
-	: dimensions( width, height ) {}
+	: dimensions( width, height ), background( 0.f, 0.33f, 0.4f, 1.f ) {}
 
 EngineRender::~EngineRender() {}
 
@@ -117,7 +120,7 @@ State* EngineRender::handle()
 {
 	glLoadIdentity();
 	glClear( GL_COLOR_BUFFER_BIT );
-	glClearColor( 0.f/MAX_COLOR_NUM, 81.f/MAX_COLOR_NUM, 102.f/MAX_COLOR_NUM, 1.f );
+	glClearColor( background.red, background.green, background.blue, background.alpha );
 
 	// Moves everything backward by -1 opengl unit
 	glTranslatef( 0.f, 0.f, -1.f );

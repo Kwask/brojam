@@ -19,6 +19,9 @@ public:
 
 class EngineProcess : public State
 {
+protected:
+	const int FRAMES_PER_SECOND = 60;	
+
 public:
 	~EngineProcess();
 	
@@ -48,6 +51,8 @@ private:
 	GLFWwindow* window = nullptr;
 
 	std::vector<float> vertices;
+
+	Color background;
 
 public:
 	EngineRender( int width, int height ); // Window width and height

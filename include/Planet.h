@@ -12,8 +12,8 @@ protected:
 	void generateVertices();
 
 public:
-	Planet();
-	Planet( Rect &bnds );
+	Planet( Color& clr );
+	Planet( Rect &bnds, Color& clr );
 };
 
 #endif

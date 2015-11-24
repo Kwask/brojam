@@ -31,7 +31,7 @@ public:
 class EngineProcess : public State
 {
 protected:
-	const double FRAMES_PER_SECOND = 1.0;	
+	const double FRAMES_PER_SECOND = 60.0;	
 	const double SEC_PER_TICK = 1.0/FRAMES_PER_SECOND;
 
 	double archived_time = glfwGetTime();

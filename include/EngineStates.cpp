@@ -12,6 +12,7 @@
 #include "Atom.h"
 #include "Planet.h"
 #include "Rect.h"
+#include "Gravity.h"
 
 // Engine start
 EngineStart::~EngineStart() {}
@@ -72,6 +73,7 @@ void EngineProcess::cleanup() {}
 
 void EngineProcess::process( double update_multiplier )
 {
+	Gravity::processGravity( update_multiplier );
 	Mob::processMobs( update_multiplier	); // Does all of the processing for mobs
 
 }
@@ -86,9 +88,11 @@ State* EngineProcess::handle()
 	time_lag += elapsed_time; // Total amount of time that has to be caught up
 	double process_time = ( time_lag>SEC_PER_TICK ) ? time_lag : SEC_PER_TICK; // Amount of game time this process will proceed by
 	
+	/*
 	debugging( std::string( "current_tick: " ) + std::to_string( current_time ));
 	debugging( std::string( "process_time: " ) + std::to_string( process_time ));
 	debugging( std::string( "time_lag: " ) + std::to_string( time_lag ));
+	*/
 
 	// If we're no longer playing catch-up, we can sleep for however long we need
 	if( time_lag < SEC_PER_TICK )

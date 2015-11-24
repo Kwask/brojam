@@ -77,3 +77,23 @@ void Atom::removeAndDel()
 	del();
 }
 
+void Atom::setXPos( float x )
+{
+	bounds.origin.x = x;
+}
+
+void Atom::setYPos( float y )
+{
+	bounds.origin.y = y;
+}
+
+float Atom::getXPos()
+{
+	return bounds.origin.x;
+}
+
+float Atom::getYPos()
+{
+	return bounds.origin.y;
+}
+

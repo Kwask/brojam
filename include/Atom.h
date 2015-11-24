@@ -17,8 +17,6 @@ protected:
 
 	int draw_mode = GL_LINE_STRIP;
 
-	std::string name;
-
 	std::vector<float> vertices;
 
 	Color color;
@@ -36,6 +34,12 @@ public:
 	void render();
 	void del();
 	void removeAndDel();
+
+	void setXPos( float x );
+	void setYPos( float y );
+
+	float getXPos();
+	float getYPos();
 };
 
 #endif

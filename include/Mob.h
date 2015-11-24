@@ -7,6 +7,8 @@
 
 class Mob : public Atom
 {
+	friend class Gravity;
+
 protected:
 	static std::vector<Mob*> mobs;
 
@@ -19,7 +21,8 @@ public:
 	~Mob();
 
 	void handle( double update_multiplier );
-	void render();
+	void addXSpeed( float speed_x );
+	void addYSpeed( float speed_y );
 };
 
 #endif

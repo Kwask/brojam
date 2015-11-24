@@ -29,3 +29,14 @@ void Mob::handle( double update_multiplier )
 	bounds.origin.x += speed.x*update_multiplier;
 	bounds.origin.y += speed.y*update_multiplier;
 }
+
+void Mob::addXSpeed( float speed_x )
+{
+	speed.x += speed_x;
+}
+
+void Mob::addYSpeed( float speed_y )
+{
+	speed.y += speed_y;
+}
+

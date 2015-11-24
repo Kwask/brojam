@@ -17,6 +17,17 @@ public:
 	State* handle();
 };
 
+class EnginePoll : public State
+{
+public:
+	~EnginePoll();
+
+	void cleanup();
+	void rakHandleNetwork();
+
+	State* handle();
+};
+
 class EngineProcess : public State
 {
 protected:
@@ -30,19 +41,7 @@ public:
 	~EngineProcess();
 	
 	void cleanup();
-	void addToContents( Atom* atom );
-	void removeFromContents( Atom* atom );
-
-	State* handle();
-};
-
-class EnginePoll : public State
-{
-public:
-	~EnginePoll();
-
-	void cleanup();
-	void rakHandleNetwork();
+	void process( double update_multiplier ); // Processes a single tick of the game
 
 	State* handle();
 };

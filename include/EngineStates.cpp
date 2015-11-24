@@ -1,4 +1,6 @@
 #include <vector>
+#include <algorithm>
+#include <thread>
 #include <GLFW/glfw3.h>
 #include "EngineStates.h"
 #include "EngineFSM.h"
@@ -11,7 +13,7 @@
 #include "Planet.h"
 #include "Rect.h"
 
-// Engine stop
+// Engine start
 EngineStart::~EngineStart() {}
 
 void EngineStart::cleanup() {}
@@ -41,25 +43,6 @@ State* EngineStart::handle()
 	Color clr( 0, 255, 0 );
 	new Planet( planet, clr );
 
-	return &EngineFSM::process;
-}
-
-// Engine process
-EngineProcess::~EngineProcess() {}
-
-void EngineProcess::cleanup() {}
-
-State* EngineProcess::handle()
-{
-	double current_tick = glfwGetTime();
-	double elapsed_time = current_tick-last_tick;
-	last_tick = current_tick;
-	
-	for( time_lag += elapsed_time; time_lag >= MS_PER_TICK; time_lag -= MS_PER_TICK )
-	{
-		Mob::processMobs(); // Does all of the processing for mobs
-	}
-
 	return &EngineFSM::poll;
 }
 
@@ -79,7 +62,47 @@ State* EnginePoll::handle()
 		return &EngineFSM::stop;
 	}
 
-	return &EngineFSM::render;
+	return &EngineFSM::process;
+}
+
+// Engine process
+EngineProcess::~EngineProcess() {}
+
+void EngineProcess::cleanup() {}
+
+void EngineProcess::process( double update_multiplier )
+{
+	Mob::processMobs(); // Does all of the processing for mobs
+
+}
+
+// This processes the game in ticks, every tick should take less than MS_PER_TICK, but if it takes more, this state will process continually until the game is caught up
+State* EngineProcess::handle()
+{
+	double current_tick = glfwGetTime();
+	double elapsed_time = current_tick-last_tick;
+	last_tick = current_tick;
+
+	time_lag += elapsed_time; // Time since we last processed
+
+	// If we're no longer playing catchup, we can sleep for however long we need
+	if( time_lag < MS_PER_TICK )
+	{
+		std::this_thread::sleep_for( std::chrono::milliseconds( (int)( MS_PER_TICK-time_lag )));
+	} 
+
+	// This will process the game, by passing a normalized value as a multiplier
+	// Inside here is an if-else statement, and the result of the if-else statement is being divided by the max number of milliseconds per tick
+	process((( time_lag>MS_PER_TICK ) ? MS_PER_TICK : time_lag )/MS_PER_TICK );
+
+	time_lag = std::max( 0.0, time_lag-MS_PER_TICK ); // Take away time this process should take
+
+	if( !time_lag )
+	{
+		return &EngineFSM::render;
+	}
+
+	return &EngineFSM::process;
 }
 
 // EngineRender
@@ -135,7 +158,7 @@ State* EngineRender::handle()
 	// Displays what was just drawn to the screen
 	glfwSwapBuffers( window );
 
-	return &EngineFSM::process;
+	return &EngineFSM::poll;
 }
 
 // EngineStop

@@ -100,11 +100,11 @@ State* EngineProcess::handle()
 		std::this_thread::sleep_for( std::chrono::milliseconds( (int)( process_time*1000 )));
 	} 
 
+	time_lag = std::max( 0.0, time_lag-process_time ); // Take away the amount of time this process took
+
 	// This will process the game, by passing a normalized value as a multiplier
 	// Inside here is an if-else statement, and the result of the if-else statement is being divided by the max number of milliseconds per tick
 	process( process_time/SEC_PER_TICK );
-
-	time_lag = std::max( 0.0, time_lag-process_time ); // Take away the amount of time this process took
 
 	if( !time_lag )
 	{

@@ -13,12 +13,12 @@ protected:
 	Coord speed; // Vector of speed
 
 public:
-	static void processMobs();
+	static void processMobs( double update_multiplier );
 
 	Mob( Color& clr );
 	~Mob();
 
-	void handle();
+	void handle( double update_multiplier );
 	void render();
 };
 

@@ -72,30 +72,35 @@ void EngineProcess::cleanup() {}
 
 void EngineProcess::process( double update_multiplier )
 {
-	Mob::processMobs(); // Does all of the processing for mobs
+	Mob::processMobs( update_multiplier	); // Does all of the processing for mobs
 
 }
 
 // This processes the game in ticks, every tick should take less than MS_PER_TICK, but if it takes more, this state will process continually until the game is caught up
 State* EngineProcess::handle()
 {
-	double current_tick = glfwGetTime();
-	double elapsed_time = current_tick-last_tick;
-	last_tick = current_tick;
+	double current_time = glfwGetTime();
+	double elapsed_time = current_time-archived_time; // Time passed since we last processed
+	archived_time = current_time;
 
-	time_lag += elapsed_time; // Time since we last processed
+	time_lag += elapsed_time; // Total amount of time that has to be caught up
+	double process_time = ( time_lag>SEC_PER_TICK ) ? time_lag : SEC_PER_TICK; // Amount of game time this process will proceed by
+	
+	debugging( std::string( "current_tick: " ) + std::to_string( current_time ));
+	debugging( std::string( "process_time: " ) + std::to_string( process_time ));
+	debugging( std::string( "time_lag: " ) + std::to_string( time_lag ));
 
-	// If we're no longer playing catchup, we can sleep for however long we need
-	if( time_lag < MS_PER_TICK )
+	// If we're no longer playing catch-up, we can sleep for however long we need
+	if( time_lag < SEC_PER_TICK )
 	{
-		std::this_thread::sleep_for( std::chrono::milliseconds( (int)( MS_PER_TICK-time_lag )));
+		std::this_thread::sleep_for( std::chrono::milliseconds( (int)( process_time*1000 )));
 	} 
 
 	// This will process the game, by passing a normalized value as a multiplier
 	// Inside here is an if-else statement, and the result of the if-else statement is being divided by the max number of milliseconds per tick
-	process((( time_lag>MS_PER_TICK ) ? MS_PER_TICK : time_lag )/MS_PER_TICK );
+	process( process_time/SEC_PER_TICK );
 
-	time_lag = std::max( 0.0, time_lag-MS_PER_TICK ); // Take away time this process should take
+	time_lag = std::max( 0.0, time_lag-process_time ); // Take away the amount of time this process took
 
 	if( !time_lag )
 	{

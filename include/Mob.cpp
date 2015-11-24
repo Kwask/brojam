@@ -5,11 +5,11 @@
 
 std::vector<Mob*> Mob::mobs;
 
-void Mob::processMobs()
+void Mob::processMobs( double update_multiplier )
 {
 	for( std::vector<Mob*>::iterator it = mobs.begin(); it != mobs.end(); ++it )
 	{
-		(*it)->handle();
+		(*it)->handle( update_multiplier );
 	}
 }
 
@@ -24,7 +24,8 @@ Mob::~Mob()
 	eraseRemove( mobs, this );
 }
 
-void Mob::handle()
+void Mob::handle( double update_multiplier )
 {
-	
+	bounds.origin.x += speed.x*update_multiplier;
+	bounds.origin.y += speed.y*update_multiplier;
 }

@@ -31,10 +31,10 @@ public:
 class EngineProcess : public State
 {
 protected:
-	const int FRAMES_PER_SECOND = 60;	
-	const float MS_PER_TICK = 1000/FRAMES_PER_SECOND;
+	const double FRAMES_PER_SECOND = 1.0;	
+	const double SEC_PER_TICK = 1.0/FRAMES_PER_SECOND;
 
-	double last_tick = glfwGetTime();
+	double archived_time = glfwGetTime();
 	double time_lag = 0;
 
 public:

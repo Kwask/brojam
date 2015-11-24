@@ -3,13 +3,11 @@
 
 #include "Coord.h"
 
-class Rect
+struct Rect
 {
-private:
 	Coord origin;
 	Coord bounds;
 
-public:
 	Rect();
 	Rect( Rect& copy );
 	Rect( int x, int y, int width, int height );

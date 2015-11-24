@@ -3,6 +3,8 @@
 
 #include <algorithm>
 #include <vector>
+#include <cmath>
+#include "defines.h"
 
 // A function that uses the erase-remove idiom to remove the given value from the given vector
 template<typename T>
@@ -21,6 +23,30 @@ inline bool findInVector( std::vector<T> &vec, const T &value )
 	}
 	
 	return false;
+}
+
+template <typename T> 
+inline int sign( T val ) 
+{
+    return (T(0) < val) - (val < T(0));
+}
+
+template <typename T>
+inline T asind( T parameter )
+{
+	return asin( parameter )*180.f/PI;
+}
+
+template <typename T>
+inline T acosd( T parameter )
+{
+	return acos( parameter )*180.f/PI;
+}
+
+template <typename T>
+inline T atand( T parameter )
+{
+	return atan( parameter )*180.f/PI;
 }
 
 #endif

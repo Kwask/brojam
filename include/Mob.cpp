@@ -1,9 +1,15 @@
 #include <vector>
+#include <cmath>
 #include "helpers/misc.h"
 #include "Mob.h"
 #include "helpers/Color.h"
 
 std::vector<Mob*> Mob::mobs;
+
+float Mob::calcAngle()
+{
+	return asind( speed.y/speed.x );
+}
 
 void Mob::processMobs( double update_multiplier )
 {
@@ -28,15 +34,37 @@ void Mob::handle( double update_multiplier )
 {
 	bounds.origin.x += speed.x*update_multiplier;
 	bounds.origin.y += speed.y*update_multiplier;
+
+	angle = calcAngle();  
 }
 
 void Mob::addXSpeed( float speed_x )
 {
 	speed.x += speed_x;
+	
+	if( fabs( speed.x ) > max_speed )
+	{
+		speed.x = sign( speed.x )*max_speed;
+	}
 }
 
 void Mob::addYSpeed( float speed_y )
 {
 	speed.y += speed_y;
+	
+	if( fabs( speed.y ) > max_speed )
+	{
+		speed.y = sign( speed.y )*max_speed;
+	}
+}
+
+void Mob::addAngSpeed( float ang_speed )
+{
+	angular_speed += ang_speed;
+
+	if( fabs( angular_speed ) > max_speed )
+	{
+		angular_speed = sign( angular_speed )*max_speed;
+	}
 }
 

@@ -1,8 +1,28 @@
+#include <cmath>
 #include "Gravity.h"
 #include "Mob.h"
 #include "helpers/misc.h"
 
 std::vector<Gravity*> Gravity::gravity_wells;
+
+void Gravity::gravitate( Mob* mob, double multiplier )
+{
+	mob->addXSpeed( getPull( mob->getXPos(), holder->getXPos(), multiplier ));
+	mob->addXSpeed( getPull( mob->getYPos(), holder->getYPos(), multiplier ));	
+}
+
+float Gravity::getPull( float obj_pos, float grav_pos, double multiplier )
+{
+	float distance = obj_pos-grav_pos;
+	if( fabs( distance ) < falloff )
+	{
+		return acceleration*multiplier*sign( distance );
+	}
+	else
+	{	
+		return ( 1/sqrt( fabs( distance )))*acceleration*multiplier*sign( distance );
+	}
+}
 
 void Gravity::processGravity( double update_multiplier )
 {
@@ -31,21 +51,3 @@ void Gravity::handle( double update_multiplier )
 	}
 }
 
-void Gravity::gravitate( Mob* mob, double multiplier )
-{
-	mob->addXSpeed( getPull( mob->getXPos(), holder->getXPos(), multiplier ));
-	mob->addXSpeed( getPull( mob->getYPos(), holder->getYPos(), multiplier ));	
-}
-
-float Gravity::getPull( float obj_pos, float grav_pos, double multiplier )
-{
-	float distance = obj_pos-grav_pos;
-	if( distance < 1 )
-	{
-		return acceleration*multiplier;
-	}
-	else
-	{	
-		return ( 1/sqrt( obj_pos-grav_pos ))*acceleration*multiplier;
-	}
-}

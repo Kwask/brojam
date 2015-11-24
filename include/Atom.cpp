@@ -52,6 +52,7 @@ void Atom::render()
 
 	glColor3f( color );
 
+	glRotatef( angle, 1.f, 0.f, 0.f );
 	glTranslatef( bounds.getOrigin().x, bounds.getOrigin().y, 0.f );
 
 	glVertexPointer( 2, GL_FLOAT, 0, vertices.data() );

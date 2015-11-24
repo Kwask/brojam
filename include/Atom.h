@@ -17,6 +17,8 @@ protected:
 
 	int draw_mode = GL_LINE_STRIP;
 
+	float angle = 0; // 0 is facing up
+
 	std::vector<float> vertices;
 
 	Color color;

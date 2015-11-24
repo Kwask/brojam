@@ -12,7 +12,12 @@ class Mob : public Atom
 protected:
 	static std::vector<Mob*> mobs;
 
-	Coord speed; // Vector of speed
+	float max_speed = 500; // Maximum speed in any direction
+	float angular_speed = 0; // Positive is clockwise, negative is counterclockwise
+
+	Coord speed; // Vector of speeed
+
+	float calcAngle();
 
 public:
 	static void processMobs( double update_multiplier );
@@ -23,6 +28,7 @@ public:
 	void handle( double update_multiplier );
 	void addXSpeed( float speed_x );
 	void addYSpeed( float speed_y );
+	void addAngSpeed( float ang_speed );
 };
 
 #endif

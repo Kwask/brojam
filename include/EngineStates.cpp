@@ -42,7 +42,7 @@ State* EngineStart::handle()
 
 	Rect planet( 300, 300, 0, 0 );
 	Color clr( 0, 255, 0 );
-	new Planet( planet, clr );
+	new Planet( clr, planet );
 
 	return &EngineFSM::poll;
 }

@@ -4,17 +4,12 @@
 #include "Atom.h"
 #include "Rect.h"
 #include "helpers/defines.h"
+#include "helpers/debug.h"
 
-Planet::Planet( Color& clr )
-	: Atom( clr )
+Planet::Planet( Color& clr, Rect& bnds )
+	: Atom( clr, bnds ) 
 {
-	generateVertices();
-}
-
-Planet::Planet( Rect& bnds, Color& clr )
-	: Atom( bnds, clr )
-{
-	generateVertices();
+	this->generateVertices();
 }	
 
 void Planet::generateVertices()

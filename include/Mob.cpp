@@ -11,6 +11,11 @@ float Mob::calcAngle()
 	return asind( speed.y/speed.x );
 }
 
+void Mob::generateVertices()
+{
+	
+}
+
 void Mob::processMobs( double update_multiplier )
 {
 	for( std::vector<Mob*>::iterator it = mobs.begin(); it != mobs.end(); ++it )
@@ -19,10 +24,11 @@ void Mob::processMobs( double update_multiplier )
 	}
 }
 
-Mob::Mob( Rect& bnds, Color& clr )
-	: Atom( bnds, clr ) 
+Mob::Mob( Color& clr, Rect& bnds )
+	: Atom( clr, bnds ) 
 {
 	mobs.push_back( this );
+	this->generateVertices();
 }
 
 Mob::~Mob()

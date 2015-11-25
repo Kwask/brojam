@@ -9,11 +9,11 @@ class Planet : protected Atom
 {
 protected:
 	float radius = 100;
-	void generateVertices();
+
+	void generateVertices();	
 
 public:
-	Planet( Color& clr );
-	Planet( Rect &bnds, Color& clr );
+	Planet( Color& clr, Rect &bnds );
 };
 
 #endif

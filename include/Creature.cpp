@@ -3,8 +3,13 @@
 #include "helpers/misc.h"
 #include "helpers/defines.h"
 
-Creature::Creature( Rect& bnds, Color& clr )
-	: Mob( bnds, clr ) {}
+Creature::Creature( Color& clr, Rect& bnds )
+	: Mob( clr, bnds ) {}
+
+void Creature::generateVertices()
+{
+
+}
 
 void Creature::moveUp()
 {

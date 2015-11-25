@@ -5,7 +5,7 @@
 #include "Coord.h"
 #include "Atom.h"
 
-class Mob : public Atom
+class Mob : protected Atom
 {
 	friend class Gravity;
 
@@ -19,10 +19,12 @@ protected:
 
 	float calcAngle();
 
+	void generateVertices();
+
 public:
 	static void processMobs( double update_multiplier );
 
-	Mob( Rect& bnds, Color& clr );
+	Mob( Color& clr, Rect& bnds );
 	~Mob();
 
 	void handle( double update_multiplier );

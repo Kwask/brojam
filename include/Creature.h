@@ -5,7 +5,7 @@
 #include "Rect.h"
 #include "helpers/Color.h"
 
-class Creature : public Mob
+class Creature : protected Mob
 {
 protected:
 	float health = 100;
@@ -13,8 +13,10 @@ protected:
 
 	float move_speed = 10; // OpenGL units / second
 
+	void generateVertices();
+
 public:
-	Creature( Rect& bnds, Color& clr );
+	Creature( Color& clr, Rect& bnds );
 
 	void moveUp();
 	void moveDown();

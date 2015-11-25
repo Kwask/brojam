@@ -30,14 +30,10 @@ void Atom::deleteAtoms()
 	atoms.clear();
 }
 
-Atom::Atom( Color& clr )
-   : color( clr )	
-{
-	atoms.push_back( this );
-}
+Atom::Atom() {}
 
-Atom::Atom( Rect& bnds, Color& clr )
-	: bounds( bnds ), color( clr )
+Atom::Atom( Color& clr, Rect& bnds )
+	: color( clr ), bounds( bnds )
 {
 	atoms.push_back( this );
 }

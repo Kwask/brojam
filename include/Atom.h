@@ -25,12 +25,16 @@ protected:
 	
 	Rect bounds; // Used for object placement + collision detection
 
+	virtual void generateVertices(void) = 0;
+	void initiliaze();
+
+	Atom();
+
 public:
 	static void renderAtoms();
 	static void deleteAtoms();
 
-	Atom( Color& clr );
-	Atom( Rect& bnds, Color& clr );	
+	Atom( Color& clr, Rect& bnds );	
 	~Atom();
 
 	void render();

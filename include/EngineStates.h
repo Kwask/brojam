@@ -6,6 +6,8 @@
 #include "patterns/State.h"
 #include "Atom.h"
 #include "Coord.h"
+#include "Creature.h"
+#include "Planet.h"
 
 class EngineStart : public State
 {
@@ -38,6 +40,9 @@ protected:
 	double time_lag = 0;
 
 public:
+	Creature* player;
+	Planet* planet;
+
 	~EngineProcess();
 	
 	void cleanup();

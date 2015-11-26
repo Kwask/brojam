@@ -13,7 +13,17 @@ float Mob::calcAngle()
 
 void Mob::generateVertices()
 {
-	
+	vertices.push_back( -bounds.bounds.x/2 );
+	vertices.push_back( -bounds.bounds.y/2 );
+
+	vertices.push_back( bounds.bounds.x/2 );
+	vertices.push_back( -bounds.bounds.y/2 );
+
+	vertices.push_back( bounds.bounds.x/2 );
+	vertices.push_back( bounds.bounds.y/2 );
+
+	vertices.push_back( -bounds.bounds.x/2 );
+	vertices.push_back( bounds.bounds.y/2 );
 }
 
 void Mob::processMobs( double update_multiplier )

@@ -13,6 +13,7 @@
 #include "Planet.h"
 #include "Rect.h"
 #include "Gravity.h"
+#include "Creature.h"
 
 // Engine start
 EngineStart::~EngineStart() {}
@@ -42,7 +43,7 @@ State* EngineStart::handle()
 
 	Rect planet( 300, 300, 0, 0 );
 	Color clr( 0, 255, 0 );
-	new Planet( clr, planet );
+	EngineFSM::process.planet = new Planet( clr, planet );	
 
 	return &EngineFSM::poll;
 }

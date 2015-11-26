@@ -10,7 +10,6 @@ class Creature : protected Mob
 protected:
 	float health = 100;
 	float max_health = 100;
-
 	float move_speed = 10; // OpenGL units / second
 
 	void generateVertices();

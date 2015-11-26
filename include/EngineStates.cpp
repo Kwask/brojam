@@ -14,11 +14,14 @@
 #include "Rect.h"
 #include "Gravity.h"
 #include "Creature.h"
+#include "patterns/CommandHandler.h"
+#include "PlayerCommands.h"
+#include "GLFWInput.h"
 
 // Engine start
-EngineStart::~EngineStart() {}
+EngineStart::EngineStart() {}
 
-void EngineStart::cleanup() {}
+EngineStart::~EngineStart() {}
 
 State* EngineStart::handle()
 {
@@ -41,17 +44,30 @@ State* EngineStart::handle()
 
 	glfwSwapInterval( 1 );
 
-	Rect planet( 300, 300, 0, 0 );
-	Color clr( 0, 255, 0 );
-	EngineFSM::process.planet = new Planet( clr, planet );	
+	glfwSetKeyCallback( EngineFSM::render.getWindow(), keyCallback );
 
 	return &EngineFSM::poll;
 }
 
 // EnginePoll
+EnginePoll::EnginePoll()
+	: handler( new PlayerJump,
+			   new PlayerLeft, 
+			   nullptr, 
+			   new PlayerRight, 
+	 		   nullptr ) 
+{}
+
 EnginePoll::~EnginePoll() {}
 
-void EnginePoll::cleanup() {}
+void EnginePoll::keyboardInput( int key, int scancode, int action, int mods )
+{
+	Command* command = handler.handleInput( key, scancode, action, mods );
+	if( command )
+	{
+		command->execute();
+	}
+}
 
 State* EnginePoll::handle()
 {
@@ -68,9 +84,14 @@ State* EnginePoll::handle()
 }
 
 // Engine process
-EngineProcess::~EngineProcess() {}
+EngineProcess::EngineProcess()
+{
+	Rect pos( 300, 300, 0, 0 );
+	Color clr( 0, 255, 0 );
+	planet = new Planet( clr, pos );	
+}
 
-void EngineProcess::cleanup() {}
+EngineProcess::~EngineProcess() {}
 
 void EngineProcess::process( double update_multiplier )
 {
@@ -121,8 +142,6 @@ EngineRender::EngineRender( int width, int height )
 
 EngineRender::~EngineRender() {}
 
-void EngineRender::cleanup() {}
-
 void EngineRender::setWindow( GLFWwindow* window )
 {
 	destroyWindow();
@@ -172,9 +191,9 @@ State* EngineRender::handle()
 }
 
 // EngineStop
-EngineStop::~EngineStop() {}
+EngineStop::EngineStop() {}
 
-void EngineStop::cleanup() {}
+EngineStop::~EngineStop() {}
 
 State* EngineStop::handle()
 {

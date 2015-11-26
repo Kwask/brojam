@@ -2,3 +2,5 @@
 
 Command::~Command() {}
 
+void Command::execute() {}
+

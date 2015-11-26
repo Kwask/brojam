@@ -7,19 +7,7 @@ FSM::FSM()
 FSM::FSM( State* const state )
 	: state_( state ) {};
 
-FSM::~FSM()
-{
-	cleanup();
-}
-
-void FSM::cleanup()
-{
-	if( state_ )
-	{
-		state_->cleanup();
-		state_ = nullptr;
-	}
-}
+FSM::~FSM() {}
 
 void FSM::changeState()
 {
@@ -31,11 +19,10 @@ void FSM::changeState()
 
 void FSM::forceState( State* const state )
 {
-	cleanup();
 	state_ = state;
 }
 
-State* const FSM::currentState()
+State* FSM::currentState() const
 {
 	return state_;
 }

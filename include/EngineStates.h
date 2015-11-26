@@ -8,24 +8,27 @@
 #include "Coord.h"
 #include "Creature.h"
 #include "Planet.h"
+#include "patterns/CommandHandler.h"
 
 class EngineStart : public State
 {
 public:
+	EngineStart();
 	~EngineStart();
-	
-	void cleanup();
 	
 	State* handle();
 };
 
 class EnginePoll : public State
 {
+protected:
+	CommandHandler handler;
+
 public:
+	EnginePoll();
 	~EnginePoll();
 
-	void cleanup();
-	void rakHandleNetwork();
+	void keyboardInput( int key, int scancode, int action, int mods );
 
 	State* handle();
 };
@@ -43,9 +46,9 @@ public:
 	Creature* player;
 	Planet* planet;
 
+	EngineProcess();
 	~EngineProcess();
 	
-	void cleanup();
 	void process( double update_multiplier ); // Processes a single tick of the game
 
 	State* handle();
@@ -66,7 +69,6 @@ public:
 	EngineRender( int width, int height ); // Window width and height
 	~EngineRender();
 
-	void cleanup();
 	void populateVerticeVector();
 	void setWindow( GLFWwindow* window );
 	void destroyWindow();
@@ -82,6 +84,7 @@ public:
 class EngineStop : public State
 {
 public:
+	EngineStop();
 	~EngineStop();
 
 	void cleanup();

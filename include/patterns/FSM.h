@@ -13,8 +13,6 @@
 class FSM
 {
 protected:
-	void cleanup();
-
 	State* state_;
 
 public:
@@ -25,7 +23,7 @@ public:
 	void changeState(); // Just call this to process the current state
 	void forceState( State* const state ); // Call this to force the state machine to assume the given state
 
-	State* const currentState(); // Returns the current state
+	State* currentState() const; // Returns the current state
 };
 
 #endif

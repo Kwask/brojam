@@ -3,7 +3,10 @@
 
 #include <GLFW/glfw3.h>
 
-void GLFWKeyCallback( GLFWwindow* window, int key, int scancode, int action, int mods );
+static void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mods )
+{
+	EngineFSM::poll.keyboardInput( key, scancode, action, mods );
+}
 
 #endif
 

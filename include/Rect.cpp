@@ -6,7 +6,7 @@ Rect::Rect() {}
 Rect::Rect( Rect& copy )
 	: origin( copy.origin ), bounds( copy.bounds ) {}
 
-Rect::Rect( int xPos, int yPos, int width, int height )
+Rect::Rect( float xPos, float yPos, float width, float height )
 	: origin( xPos, yPos ), bounds( width, height ) {}
 
 Rect::Rect( const Coord orig, const Coord bnds )

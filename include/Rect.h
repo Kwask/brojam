@@ -10,7 +10,7 @@ struct Rect
 
 	Rect();
 	Rect( Rect& copy );
-	Rect( int x, int y, int width, int height );
+	Rect( float x, float y, float width, float height );
 	Rect( const Coord origin, const Coord bound );
 	~Rect();
 

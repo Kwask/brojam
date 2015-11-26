@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include "defines.h"
+#include "../Rect.h"
 
 // A function that uses the erase-remove idiom to remove the given value from the given vector
 template<typename T>
@@ -66,5 +67,8 @@ inline T atand( T parameter )
 {
 	return atan( parameter )*180.f/PI;
 }
+
+// Returns a rect centered around the origin point of the given rect
+Rect rectCenter( const Rect& given );
 
 #endif

@@ -86,7 +86,7 @@ State* EnginePoll::handle()
 // Engine process
 EngineProcess::EngineProcess()
 {
-	Rect pos( 300, 300, 0, 0 );
+	Rect pos( 300.f, 300.f, 0.f, 0.f );
 	Color clr( 0, 255, 0 );
 	planet = new Planet( clr, pos );	
 }
@@ -138,7 +138,9 @@ State* EngineProcess::handle()
 
 // EngineRender
 EngineRender::EngineRender( int width, int height )
-	: dimensions( width, height ), background( 0.f, 0.33f, 0.4f, 1.f ) {}
+	: camera( 0, 0, width, height ),
+	  background( 0.f, 0.33f, 0.4f, 1.f )
+{}
 
 EngineRender::~EngineRender() {}
 
@@ -159,12 +161,12 @@ void EngineRender::destroyWindow()
 
 int EngineRender::getWindowWidth()
 {
-	return dimensions.x;
+	return camera.bounds.x;
 }
 
 int EngineRender::getWindowHeight()
 {
-	return dimensions.y;
+	return camera.bounds.y;
 }
 
 GLFWwindow* EngineRender::getWindow()
@@ -179,7 +181,7 @@ State* EngineRender::handle()
 	glClearColor( background.red, background.green, background.blue, background.alpha );
 
 	// Moves everything backward by -1 opengl unit
-	glTranslatef( 0.f, 0.f, -1.f );
+	glTranslatef( camera.origin.x, camera.origin.y, -1.f );
 
 	// Draw all atoms
 	Atom::renderAtoms();

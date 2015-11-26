@@ -56,8 +56,8 @@ public:
 
 class EngineRender : public State
 {
-private:
-	Coord dimensions;
+protected:
+	Rect camera;
 
 	GLFWwindow* window = nullptr;
 

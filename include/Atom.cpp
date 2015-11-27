@@ -94,3 +94,10 @@ float Atom::getYPos()
 	return bounds.origin.y;
 }
 
+Coord Atom::getOrigin()
+{
+	debugging( std::string( "X: " ) + std::to_string( bounds.origin.x ));
+	debugging( std::string( "Y: " ) + std::to_string( bounds.origin.y ));
+	return bounds.origin;
+}
+

@@ -2,14 +2,10 @@
 #include "Mob.h"
 #include "helpers/misc.h"
 #include "helpers/defines.h"
+#include "helpers/debug.h"
 
 Creature::Creature( Color& clr, Rect& bnds )
 	: Mob( clr, bnds ) {}
-
-void Creature::generateVertices()
-{
-
-}
 
 void Creature::moveUp()
 {

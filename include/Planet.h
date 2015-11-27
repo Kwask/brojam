@@ -5,7 +5,7 @@
 #include "Atom.h"
 #include "Rect.h"
 
-class Planet : protected Atom
+class Planet : public Atom
 {
 protected:
 	float radius = 100;

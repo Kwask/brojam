@@ -14,7 +14,7 @@
 #include "Rect.h"
 #include "Gravity.h"
 #include "Creature.h"
-#include "patterns/CommandHandler.h"
+#include "CommandHandler.h"
 #include "PlayerCommands.h"
 #include "GLFWInput.h"
 
@@ -62,10 +62,10 @@ EnginePoll::~EnginePoll() {}
 
 void EnginePoll::keyboardInput( int key, int scancode, int action, int mods )
 {
-	Command* command = handler.handleInput( key, scancode, action, mods );
+	PlayerCommand* command = handler.handleInput( key, scancode, action, mods );
 	if( command )
 	{
-		command->execute();
+		command->execute( (*EngineFSM::process.player) );
 	}
 }
 
@@ -86,9 +86,13 @@ State* EnginePoll::handle()
 // Engine process
 EngineProcess::EngineProcess()
 {
-	Rect pos( 300.f, 300.f, 0.f, 0.f );
-	Color clr( 0, 255, 0 );
-	planet = new Planet( clr, pos );	
+	Rect planet_pos( 300.f, 300.f, 0.f, 0.f );
+	Color planet_clr( 0, 255, 0 );
+	planet = new Planet( planet_clr, planet_pos );	
+
+	Rect player_pos( 500.f, 500.f, 30.f, 30.f );
+	Color player_clr( 255, 0, 0 );
+	player = new Creature( player_clr, player_pos );
 }
 
 EngineProcess::~EngineProcess() {}
@@ -97,7 +101,6 @@ void EngineProcess::process( double update_multiplier )
 {
 	Gravity::processGravity( update_multiplier );
 	Mob::processMobs( update_multiplier	); // Does all of the processing for mobs
-
 }
 
 // This processes the game in ticks, every tick should take less than MS_PER_TICK, but if it takes more, this state will process continually until the game is caught up
@@ -144,6 +147,23 @@ EngineRender::EngineRender( int width, int height )
 
 EngineRender::~EngineRender() {}
 
+void EngineRender::updateCamera()
+{
+	int width = 0, height = 0;
+
+	glfwGetWindowSize( window, &width, &height );
+
+	camera.bounds.x = width;
+	camera.bounds.y = height;
+
+	rectCenter( camera, EngineFSM::process.player->getOrigin() );
+
+	debugging( std::string( "Camera X: " ) + std::to_string( camera.origin.x ));
+	debugging( std::string( "Camera Y: " ) + std::to_string( camera.origin.y ));
+	debugging( std::string( "Camera W: " ) + std::to_string( camera.bounds.x ));
+	debugging( std::string( "Camera H: " ) + std::to_string( camera.bounds.y ));
+}
+
 void EngineRender::setWindow( GLFWwindow* window )
 {
 	destroyWindow();
@@ -176,11 +196,13 @@ GLFWwindow* EngineRender::getWindow()
 
 State* EngineRender::handle()
 {
+	updateCamera();
+
 	glLoadIdentity();
 	glClear( GL_COLOR_BUFFER_BIT );
 	glClearColor( background.red, background.green, background.blue, background.alpha );
 
-	// Moves everything backward by -1 opengl unit
+	// Moves the perspective
 	glTranslatef( camera.origin.x, camera.origin.y, -1.f );
 
 	// Draw all atoms

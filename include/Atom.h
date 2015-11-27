@@ -15,7 +15,7 @@ protected:
 
 	bool visible = true; // should this be drawn?
 
-	int draw_mode = GL_LINE_STRIP;
+	int draw_mode = GL_LINE_LOOP;
 
 	float angle = 0; // 0 is facing right
 
@@ -37,15 +37,17 @@ public:
 	Atom( Color& clr, Rect& bnds );	
 	~Atom();
 
-	void render();
-	void del();
-	void removeAndDel();
+	virtual void render();
+	virtual void del();
+	virtual void removeAndDel();
 
 	void setXPos( float x );
 	void setYPos( float y );
 
 	float getXPos();
 	float getYPos();
+
+	Coord getOrigin();
 };
 
 #endif

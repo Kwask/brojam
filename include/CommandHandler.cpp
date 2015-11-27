@@ -1,18 +1,18 @@
 #include "CommandHandler.h"
-#include "Command.h"
+#include "PlayerCommands.h"
 
-CommandHandler::CommandHandler( Command* w_press, 
-								Command* a_press, 
-								Command* s_press, 
-								Command* d_press, 
-								Command* space_press )
+CommandHandler::CommandHandler( PlayerCommand* w_press, 
+								PlayerCommand* a_press, 
+								PlayerCommand* s_press, 
+								PlayerCommand* d_press, 
+								PlayerCommand* space_press )
 	: w_press( w_press ), 
 	  a_press( a_press ), 
 	  s_press( s_press ), 
 	  d_press( d_press ), 
 	  space_press( space_press ) {}
 
-Command* CommandHandler::handleInput( int key, int scancode, int action, int mods )
+PlayerCommand* CommandHandler::handleInput( int key, int scancode, int action, int mods )
 {
 	if( action == GLFW_PRESS )
 	{
@@ -33,4 +33,3 @@ Command* CommandHandler::handleInput( int key, int scancode, int action, int mod
 
 	return nullptr;
 }
-

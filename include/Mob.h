@@ -5,7 +5,7 @@
 #include "Coord.h"
 #include "Atom.h"
 
-class Mob : protected Atom
+class Mob : public Atom
 {
 	friend class Gravity;
 
@@ -17,9 +17,9 @@ protected:
 
 	Coord speed; // Vector of speeed
 
-	float calcAngle();
+	float calcAngle(); // Calculates the direction of the object based on velocity
 
-	void generateVertices();
+	virtual void generateVertices();
 
 public:
 	static void processMobs( double update_multiplier );

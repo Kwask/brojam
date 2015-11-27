@@ -4,31 +4,34 @@
 #include "Creature.h"
 #include "patterns/Command.h"
 
-class PlayerJump : public Command
+class PlayerCommand : public Command
 {
 public:
 	using Command::execute;
+	virtual void execute( Creature& creature ) = 0;	
+};
+
+class PlayerJump : public PlayerCommand
+{
+public:
 	void execute( Creature& creature );
 };
 
-class PlayerLeft : public Command 
+class PlayerLeft : public PlayerCommand 
 {
 public:
-	using Command::execute;
 	void execute( Creature& creature );
 };
 
-class PlayerRight : public Command 
+class PlayerRight : public PlayerCommand 
 {
 public:
-	using Command::execute;
 	void execute( Creature& creature );
 };
 
-class PlayerShoot: public Command 
+class PlayerShoot: public PlayerCommand 
 {
 public:
-	using Command::execute;
 	void execute( Creature& creature );
 };
 

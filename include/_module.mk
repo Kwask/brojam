@@ -8,7 +8,8 @@ SRC += include/Atom.cpp \
 	   include/Planet.cpp \
 	   include/Gravity.cpp \
 	   include/Creature.cpp \
-	   include/PlayerCommands.cpp 
+	   include/PlayerCommands.cpp \
+	   include/CommandHandler.cpp 
 
 LIBS += -lGLEW \
 		-lglfw3 \

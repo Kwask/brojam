@@ -1,13 +1,10 @@
 #include "misc.h"
 #include "../Rect.h"
+#include "../Coord.h"
 
-Rect rectCenter( const Rect& given )
+void rectCenter( Rect& given, const Coord& center )
 {
-	Rect centered( given.origin.x-( given.bounds.x/2 ),
-				   given.origin.y-( given.bounds.y/2 ),
-				   given.origin.x+( given.bounds.x/2 ),
-				   given.origin.y+( given.bounds.y/2 ));
-
-	return centered;
+	given.origin.x = center.x-( given.bounds.x/2 );
+	given.origin.y = center.y-( given.bounds.y/2 );
 }
 

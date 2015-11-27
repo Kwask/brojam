@@ -9,7 +9,7 @@ void GLFWResize( GLFWwindow *window, int width, int height )
 	
 	glLoadIdentity();
 	
-	glOrtho( 0, width, 0, height, 1.0f, 100.0f );
+	glOrtho( -width/2, width/2, -height/2, height/2, 1.0f, 100.0f );
 	glMatrixMode( GL_MODELVIEW );
 }
 

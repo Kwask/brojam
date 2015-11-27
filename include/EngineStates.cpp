@@ -45,6 +45,7 @@ State* EngineStart::handle()
 	glfwSwapInterval( 1 );
 
 	glfwSetKeyCallback( EngineFSM::render.getWindow(), keyCallback );
+	glfwWindowHint( GLFW_SAMPLES, 2 );
 
 	return &EngineFSM::poll;
 }
@@ -66,6 +67,7 @@ void EnginePoll::keyboardInput( int key, int scancode, int action, int mods )
 	if( command )
 	{
 		command->execute( (*EngineFSM::process.player) );
+//		debugging( "Executing command" );
 	}
 }
 
@@ -86,11 +88,11 @@ State* EnginePoll::handle()
 // Engine process
 EngineProcess::EngineProcess()
 {
-	Rect planet_pos( 300.f, 300.f, 0.f, 0.f );
+	Rect planet_pos( 0.f, 0.f, 0.f, 0.f );
 	Color planet_clr( 0, 255, 0 );
 	planet = new Planet( planet_clr, planet_pos );	
 
-	Rect player_pos( 500.f, 500.f, 30.f, 30.f );
+	Rect player_pos( 130.f, 0.f, 30.f, 30.f );
 	Color player_clr( 255, 0, 0 );
 	player = new Creature( player_clr, player_pos );
 }
@@ -157,11 +159,12 @@ void EngineRender::updateCamera()
 	camera.bounds.y = height;
 
 	rectCenter( camera, EngineFSM::process.player->getOrigin() );
-
+/*
 	debugging( std::string( "Camera X: " ) + std::to_string( camera.origin.x ));
 	debugging( std::string( "Camera Y: " ) + std::to_string( camera.origin.y ));
 	debugging( std::string( "Camera W: " ) + std::to_string( camera.bounds.x ));
 	debugging( std::string( "Camera H: " ) + std::to_string( camera.bounds.y ));
+*/
 }
 
 void EngineRender::setWindow( GLFWwindow* window )
@@ -199,14 +202,14 @@ State* EngineRender::handle()
 	updateCamera();
 
 	glLoadIdentity();
-	glClear( GL_COLOR_BUFFER_BIT );
 	glClearColor( background.red, background.green, background.blue, background.alpha );
-
-	// Moves the perspective
-	glTranslatef( camera.origin.x, camera.origin.y, -1.f );
+	glClear( GL_COLOR_BUFFER_BIT );
 
 	// Draw all atoms
 	Atom::renderAtoms();
+
+	// Moves the perspective
+	glTranslatef( camera.origin.x, camera.origin.y, 0.f );
 
 	// Displays what was just drawn to the screen
 	glfwSwapBuffers( window );

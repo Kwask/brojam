@@ -3,6 +3,7 @@
 #include "helpers/misc.h"
 #include "Mob.h"
 #include "helpers/Color.h"
+#include "helpers/debug.h"
 
 std::vector<Mob*> Mob::mobs;
 
@@ -48,6 +49,9 @@ Mob::~Mob()
 
 void Mob::handle( double update_multiplier )
 {
+	debugging( std::string( "Speed X: " ) + std::to_string( speed.x )); 
+	debugging( std::string( "Speed Y: " ) + std::to_string( speed.y )); 
+
 	bounds.origin.x += speed.x*update_multiplier;
 	bounds.origin.y += speed.y*update_multiplier;
 

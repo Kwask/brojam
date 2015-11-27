@@ -14,7 +14,6 @@ void Atom::renderAtoms()
 	{
 		if( (*it)->visible )
 		{
-			//debugging( "Rendering " + (*it)->name );
 			(*it)->render();
 		}
 	}	
@@ -48,8 +47,8 @@ void Atom::render()
 
 	glColor3f( color );
 
-	glRotatef( angle, 1.f, 0.f, 0.f );
-	glTranslatef( bounds.getOrigin().x, bounds.getOrigin().y, 0.f );
+//	glRotatef( angle, 1.f, 0.f, 0.f );
+	glTranslatef( bounds.getOrigin().x, bounds.getOrigin().y, -1.f );
 
 	glVertexPointer( 2, GL_FLOAT, 0, vertices.data() );
 	glDrawArrays( draw_mode, 0, vertices.size()/2 );
@@ -96,8 +95,8 @@ float Atom::getYPos()
 
 Coord Atom::getOrigin()
 {
-	debugging( std::string( "X: " ) + std::to_string( bounds.origin.x ));
-	debugging( std::string( "Y: " ) + std::to_string( bounds.origin.y ));
+//	debugging( std::string( "X: " ) + std::to_string( bounds.origin.x ));
+//	debugging( std::string( "Y: " ) + std::to_string( bounds.origin.y ));
 	return bounds.origin;
 }
 

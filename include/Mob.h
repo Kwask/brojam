@@ -10,7 +10,7 @@ class Mob : public Atom
 	friend class Gravity;
 
 protected:
-	static std::vector<Mob*> mobs;
+	static std::vector<Mob*> &mobs();
 
 	float max_speed = 500; // Maximum speed in any direction
 	float angular_speed = 0; // Positive is countercolockwise, negative is clockwise
@@ -20,6 +20,7 @@ protected:
 	float calcAngle(); // Calculates the direction of the object based on velocity
 
 	virtual void generateVertices();
+	void addToMobs();
 
 public:
 	static void processMobs( double update_multiplier );
@@ -31,6 +32,7 @@ public:
 	void addXSpeed( float speed_x );
 	void addYSpeed( float speed_y );
 	void addAngSpeed( float ang_speed );
+	virtual void removeAndDel();
 };
 
 #endif

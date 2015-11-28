@@ -4,13 +4,16 @@
 #include "EngineFSM.h"
 #include "helpers/GLFWFuncs.h"
 #include "helpers/misc.h"
-#include "helpers/debug.h"
 
-std::vector<Atom*> Atom::atoms;
+std::vector<Atom*> &Atom::atoms()
+{
+	static std::vector<Atom*>* atoms = new std::vector<Atom*>;
+	return *atoms;
+}
 
 void Atom::renderAtoms()
 {
-	for( std::vector<Atom*>::iterator it = atoms.begin(); it != atoms.end(); ++it )
+	for( std::vector<Atom*>::iterator it = atoms().begin(); it != atoms().end(); ++it )
 	{
 		if( (*it)->visible )
 		{
@@ -21,12 +24,12 @@ void Atom::renderAtoms()
 
 void Atom::deleteAtoms()
 {
-	for( std::vector<Atom*>::iterator it = atoms.begin(); it != atoms.end(); ++it )
+	for( std::vector<Atom*>::iterator it = atoms().begin(); it != atoms().end(); ++it )
 	{
 		(*it)->del();
 	}
 
-	atoms.clear();
+	atoms().clear();
 }
 
 Atom::Atom() {}
@@ -34,7 +37,7 @@ Atom::Atom() {}
 Atom::Atom( Color& clr, Rect& bnds )
 	: color( clr ), bounds( bnds )
 {
-	atoms.push_back( this );
+	atoms().push_back( this );
 }
 
 Atom::~Atom() {}
@@ -65,9 +68,9 @@ void Atom::del()
 
 void Atom::removeAndDel()
 {
-	if( findInVector( atoms, this ))
+	if( findInVector( atoms(), this ))
 	{
-		eraseRemove( atoms, this ); // Removing this object from the atoms list	
+		eraseRemove( atoms(), this ); // Removing this object from the atoms list	
 	}
 
 	del();

@@ -4,6 +4,7 @@
 #include "patterns/State.h"
 #include "EngineFSM.h"
 #include "EngineStates.h"
+#include "Mob.h"
 
 Engine* Engine::instance = nullptr;
 

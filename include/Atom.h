@@ -11,7 +11,7 @@
 class Atom
 {
 protected:
-	static std::vector<Atom*> atoms;
+	static std::vector<Atom*> &atoms();
 
 	bool visible = true; // should this be drawn?
 

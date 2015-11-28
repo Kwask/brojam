@@ -67,7 +67,6 @@ void EnginePoll::keyboardInput( int key, int scancode, int action, int mods )
 	if( command )
 	{
 		command->execute( (*EngineFSM::process.player) );
-//		debugging( "Executing command" );
 	}
 }
 
@@ -90,11 +89,17 @@ EngineProcess::EngineProcess()
 {
 	Rect planet_pos( 0.f, 0.f, 0.f, 0.f );
 	Color planet_clr( 0, 255, 0 );
-	planet = new Planet( planet_clr, planet_pos );	
+	this->planet = new Planet( planet_clr, planet_pos );	
 
 	Rect player_pos( 130.f, 0.f, 30.f, 30.f );
 	Color player_clr( 255, 0, 0 );
-	player = new Creature( player_clr, player_pos );
+	this->player = new Creature( player_clr, player_pos );
+
+	for( int i = 0; i < 100; i++ )
+	{
+		Rect new_pos( 160.f+30.f*i, 0.f, 30.f, 30.f );
+		new Creature( player_clr, new_pos );
+	}
 }
 
 EngineProcess::~EngineProcess() {}
@@ -144,8 +149,7 @@ State* EngineProcess::handle()
 // EngineRender
 EngineRender::EngineRender( int width, int height )
 	: camera( 0, 0, width, height ),
-	  background( 0.f, 0.33f, 0.4f, 1.f )
-{}
+	  background( 0.f, 0.33f, 0.4f, 1.f ) {}
 
 EngineRender::~EngineRender() {}
 

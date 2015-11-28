@@ -6,6 +6,7 @@
 #include "patterns/State.h"
 #include "Atom.h"
 #include "Coord.h"
+#include "Mob.h"
 #include "Creature.h"
 #include "Planet.h"
 #include "CommandHandler.h"

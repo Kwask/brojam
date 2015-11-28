@@ -7,6 +7,7 @@
 #include "defines.h"
 #include "../Rect.h"
 #include "../Coord.h"
+#include "debug.h"
 
 // A function that uses the erase-remove idiom to remove the given value from the given vector
 template<typename T>

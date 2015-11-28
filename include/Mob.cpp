@@ -1,11 +1,15 @@
 #include <vector>
 #include <cmath>
-#include "helpers/misc.h"
 #include "Mob.h"
+#include "helpers/misc.h"
 #include "helpers/Color.h"
 #include "helpers/debug.h"
 
-std::vector<Mob*> Mob::mobs;
+std::vector<Mob*> &Mob::mobs()
+{
+	static std::vector<Mob*>* mobs = new std::vector<Mob*>;
+	return *mobs;
+}
 
 float Mob::calcAngle()
 {
@@ -27,9 +31,14 @@ void Mob::generateVertices()
 	vertices.push_back( bounds.bounds.y/2 );
 }
 
+void Mob::addToMobs()
+{
+	mobs().push_back( this );
+}
+
 void Mob::processMobs( double update_multiplier )
 {
-	for( std::vector<Mob*>::iterator it = mobs.begin(); it != mobs.end(); ++it )
+	for( std::vector<Mob*>::iterator it = mobs().begin(); it != mobs().end(); ++it )
 	{
 		(*it)->handle( update_multiplier );
 	}
@@ -38,19 +47,19 @@ void Mob::processMobs( double update_multiplier )
 Mob::Mob( Color& clr, Rect& bnds )
 	: Atom( clr, bnds ) 
 {
-	mobs.push_back( this );
 	this->generateVertices();
+	addToMobs();
 }
 
 Mob::~Mob()
 {
-	eraseRemove( mobs, this );
+
 }
 
 void Mob::handle( double update_multiplier )
 {
-	debugging( std::string( "Speed X: " ) + std::to_string( speed.x )); 
-	debugging( std::string( "Speed Y: " ) + std::to_string( speed.y )); 
+//	debugging( std::string( "Speed X: " ) + std::to_string( speed.x )); 
+//	debugging( std::string( "Speed Y: " ) + std::to_string( speed.y )); 
 
 	bounds.origin.x += speed.x*update_multiplier;
 	bounds.origin.y += speed.y*update_multiplier;
@@ -86,5 +95,20 @@ void Mob::addAngSpeed( float ang_speed )
 	{
 		angular_speed = sign( angular_speed )*max_speed;
 	}
+}
+
+void Mob::removeAndDel()
+{
+/*	if( findInVector( atoms, this ))
+	{
+		eraseRemove( atoms, this ); // Removing this object from the atoms list	
+	} */
+
+	if( findInVector( mobs(), this ))
+	{
+		eraseRemove( mobs(), this );
+	}
+
+	del();
 }
 

@@ -45,7 +45,7 @@ Gravity::~Gravity()
 
 void Gravity::handle( double update_multiplier )
 {
-	for( std::vector<Mob*>::iterator it = Mob::mobs.begin(); it != Mob::mobs.end(); ++it )
+	for( std::vector<Mob*>::iterator it = Mob::mobs().begin(); it != Mob::mobs().end(); ++it )
 	{
 		gravitate( *it, update_multiplier );
 	}

@@ -3,7 +3,11 @@
 #include "Mob.h"
 #include "helpers/misc.h"
 
-std::vector<Gravity*> Gravity::gravity_wells;
+std::vector<Gravity*> &Gravity::gravity_wells()
+{
+	static std::vector<Gravity*>* gravity_wells = new std::vector<Gravity*>;
+	return *gravity_wells;
+}
 
 void Gravity::gravitate( Mob* mob, double multiplier )
 {
@@ -26,21 +30,21 @@ float Gravity::getPull( float obj_pos, float grav_pos, double multiplier )
 
 void Gravity::processGravity( double update_multiplier )
 {
-	for( std::vector<Gravity*>::iterator it = gravity_wells.begin(); it != gravity_wells.end(); ++it )
+	for( std::vector<Gravity*>::iterator it = gravity_wells().begin(); it != gravity_wells().end(); ++it )
 	{
 		(*it)->handle( update_multiplier );
 	}
 }
 
-Gravity::Gravity( float accel )
-	: acceleration( accel ) 
+Gravity::Gravity( float accel, Atom* holder )
+	: acceleration( accel ), holder( holder )
 {
-	gravity_wells.push_back( this );
+	gravity_wells().push_back( this );
 }
 
 Gravity::~Gravity()
 {
-	eraseRemove( gravity_wells, this );
+	eraseRemove( gravity_wells(), this );
 }
 
 void Gravity::handle( double update_multiplier )

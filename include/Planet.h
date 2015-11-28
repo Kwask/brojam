@@ -4,11 +4,14 @@
 #include <string>
 #include "Atom.h"
 #include "Rect.h"
+#include "Gravity.h"
 
 class Planet : public Atom
 {
 protected:
 	float radius = 100;
+
+	Gravity gravity;
 
 	void generateVertices();	
 

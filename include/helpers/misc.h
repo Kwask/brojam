@@ -5,8 +5,6 @@
 #include <vector>
 #include <cmath>
 #include "defines.h"
-#include "../Rect.h"
-#include "../Coord.h"
 #include "debug.h"
 
 // A function that uses the erase-remove idiom to remove the given value from the given vector
@@ -69,8 +67,5 @@ inline T atand( T parameter )
 {
 	return atan( parameter )*180.f/PI;
 }
-
-// Centers given rect on center point
-void rectCenter( Rect& given, const Coord& center );
 
 #endif

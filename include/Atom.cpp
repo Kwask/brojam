@@ -50,8 +50,9 @@ void Atom::render()
 
 	glColor3f( color );
 
-//	glRotatef( angle, 1.f, 0.f, 0.f );
-	glTranslatef( bounds.getOrigin().x, bounds.getOrigin().y, -1.f );
+	//glRotatef( 45, 0.f, 0.f, 1.f );
+	glTranslatef( -EngineFSM::render.getCameraX(), -EngineFSM::render.getCameraY(), 0.f );
+	glTranslatef( bounds.getOrigin().x, bounds.getOrigin().y, 0.f );
 
 	glVertexPointer( 2, GL_FLOAT, 0, vertices.data() );
 	glDrawArrays( draw_mode, 0, vertices.size()/2 );

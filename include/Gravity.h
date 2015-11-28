@@ -8,7 +8,7 @@
 class Gravity
 {
 private:
-	static std::vector<Gravity*> gravity_wells;
+	static std::vector<Gravity*> &gravity_wells();
 
 	Atom* holder; // What holds this?
 
@@ -22,7 +22,7 @@ private:
 public:
 	static void processGravity( double update_multiplier );
 
-	Gravity( float accel );
+	Gravity( float accel, Atom* holder );
 	~Gravity();
 
 	void handle( double update_multiplier );	

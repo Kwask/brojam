@@ -76,6 +76,8 @@ public:
 
 	int getWindowWidth();
 	int getWindowHeight();
+	float getCameraX();
+	float getCameraY();
 
 	GLFWwindow* getWindow();
 

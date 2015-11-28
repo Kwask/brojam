@@ -17,3 +17,8 @@ void PlayerRight::execute( Creature& creature )
 	creature.moveRight();
 }
 
+void PlayerDown::execute( Creature& creature )
+{
+	creature.moveDown();
+}
+

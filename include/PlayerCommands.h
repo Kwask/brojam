@@ -29,6 +29,12 @@ public:
 	void execute( Creature& creature );
 };
 
+class PlayerDown : public PlayerCommand
+{
+public:
+	void execute( Creature& creature );
+};
+
 class PlayerShoot: public PlayerCommand 
 {
 public:

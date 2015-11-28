@@ -52,11 +52,11 @@ State* EngineStart::handle()
 
 // EnginePoll
 EnginePoll::EnginePoll()
-	: handler( new PlayerJump,
-			   new PlayerLeft, 
-			   nullptr, 
-			   new PlayerRight, 
-	 		   nullptr ) 
+	: handler( new PlayerJump, // W
+			   new PlayerLeft, // A
+			   new PlayerDown, // S
+			   new PlayerRight, // D
+	 		   nullptr ) // Space
 {}
 
 EnginePoll::~EnginePoll() {}
@@ -66,7 +66,7 @@ void EnginePoll::keyboardInput( int key, int scancode, int action, int mods )
 	PlayerCommand* command = handler.handleInput( key, scancode, action, mods );
 	if( command )
 	{
-		command->execute( (*EngineFSM::process.player) );
+		command->execute( *EngineFSM::process.player );
 	}
 }
 
@@ -106,7 +106,7 @@ EngineProcess::~EngineProcess() {}
 
 void EngineProcess::process( double update_multiplier )
 {
-	Gravity::processGravity( update_multiplier );
+	//Gravity::processGravity( update_multiplier );
 	Mob::processMobs( update_multiplier	); // Does all of the processing for mobs
 }
 
@@ -136,6 +136,7 @@ State* EngineProcess::handle()
 
 	// This will process the game, by passing a normalized value as a multiplier
 	// Inside here is an if-else statement, and the result of the if-else statement is being divided by the max number of milliseconds per tick
+	//debugging( std::to_string( process_time/SEC_PER_TICK ));
 	process( process_time/SEC_PER_TICK );
 
 	if( !time_lag )
@@ -162,13 +163,14 @@ void EngineRender::updateCamera()
 	camera.bounds.x = width;
 	camera.bounds.y = height;
 
-	rectCenter( camera, EngineFSM::process.player->getOrigin() );
-/*
+	camera.origin.x = EngineFSM::process.player->getOrigin().x;
+	camera.origin.y = EngineFSM::process.player->getOrigin().y;
+
 	debugging( std::string( "Camera X: " ) + std::to_string( camera.origin.x ));
 	debugging( std::string( "Camera Y: " ) + std::to_string( camera.origin.y ));
 	debugging( std::string( "Camera W: " ) + std::to_string( camera.bounds.x ));
 	debugging( std::string( "Camera H: " ) + std::to_string( camera.bounds.y ));
-*/
+
 }
 
 void EngineRender::setWindow( GLFWwindow* window )
@@ -196,6 +198,16 @@ int EngineRender::getWindowHeight()
 	return camera.bounds.y;
 }
 
+float EngineRender::getCameraX()
+{
+	return camera.origin.x;
+}
+
+float EngineRender::getCameraY()
+{
+	return camera.origin.y;
+}
+
 GLFWwindow* EngineRender::getWindow()
 {
 	return window;
@@ -209,11 +221,11 @@ State* EngineRender::handle()
 	glClearColor( background.red, background.green, background.blue, background.alpha );
 	glClear( GL_COLOR_BUFFER_BIT );
 
+	// Moves the perspective
+	glTranslatef( 0.f, 0.f, -1.f );
+
 	// Draw all atoms
 	Atom::renderAtoms();
-
-	// Moves the perspective
-	glTranslatef( camera.origin.x, camera.origin.y, 0.f );
 
 	// Displays what was just drawn to the screen
 	glfwSwapBuffers( window );

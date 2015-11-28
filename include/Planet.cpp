@@ -7,7 +7,7 @@
 #include "helpers/debug.h"
 
 Planet::Planet( Color& clr, Rect& bnds )
-	: Atom( clr, bnds ) 
+	: Atom( clr, bnds ), gravity( 10, this ) 
 {
 	this->generateVertices();
 }	

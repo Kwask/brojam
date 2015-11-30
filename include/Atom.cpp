@@ -50,10 +50,12 @@ void Atom::render()
 
 	glColor3f( color );
 
-	//glRotatef( 45, 0.f, 0.f, 1.f );
+	// Moving the objects to their proper locations
 	glTranslatef( -EngineFSM::render.getCameraX(), -EngineFSM::render.getCameraY(), 0.f );
 	glTranslatef( bounds.getOrigin().x, bounds.getOrigin().y, 0.f );
+	glRotatef( radToDeg( angle ), 0.f, 0.f, 1.f );
 
+	// Drawing the objects via a VBO
 	glVertexPointer( 2, GL_FLOAT, 0, vertices.data() );
 	glDrawArrays( draw_mode, 0, vertices.size()/2 );
 

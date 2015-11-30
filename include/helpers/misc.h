@@ -33,6 +33,13 @@ inline int sign( T val )
 }
 
 template <typename T>
+inline T radToDeg( T parameter )
+{
+	return parameter*( 180/PI );
+}
+
+/*
+template <typename T>
 inline T sind( T parameter )
 {
 	return sin( parameter*( PI/180.f ));
@@ -67,5 +74,6 @@ inline T atand( T parameter )
 {
 	return atan( parameter )*180.f/PI;
 }
+*/
 
 #endif

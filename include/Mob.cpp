@@ -13,7 +13,12 @@ std::vector<Mob*> &Mob::mobs()
 
 float Mob::calcAngle()
 {
-	return asin( speed.y/speed.x );
+	if( speed.x != 0 )
+	{
+		return atan( speed.y/speed.x );
+	}
+
+	return 0;
 }
 
 void Mob::generateVertices()

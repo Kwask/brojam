@@ -10,7 +10,7 @@ class Creature : public Mob
 protected:
 	float health = 100;
 	float max_health = 100;
-	float move_speed = 1; // OpenGL units / second
+	float move_speed = 0.05; // OpenGL units / second
 
 public:
 	Creature( Color& clr, Rect& bnds );

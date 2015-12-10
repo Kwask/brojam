@@ -106,7 +106,7 @@ EngineProcess::~EngineProcess() {}
 
 void EngineProcess::process( double update_multiplier )
 {
-	//Gravity::processGravity( update_multiplier );
+	Gravity::processGravity( update_multiplier );
 	Mob::processMobs( update_multiplier	); // Does all of the processing for mobs
 }
 

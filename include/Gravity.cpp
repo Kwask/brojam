@@ -11,21 +11,45 @@ std::vector<Gravity*> &Gravity::gravity_wells()
 
 void Gravity::gravitate( Mob* mob, double multiplier )
 {
-	mob->addXSpeed( getPull( mob->getXPos(), holder->getXPos(), multiplier ));
-	mob->addXSpeed( getPull( mob->getYPos(), holder->getYPos(), multiplier ));	
+	float distance = getDistance( mob );
+	float x_displacement = holder->getXPos() - mob->getXPos();
+	float y_displacement = holder->getYPos() - mob->getYPos();
+	float x_speed = ( x_displacement/distance )*multiplier*acceleration;
+	float y_speed = ( y_displacement/distance )*multiplier*acceleration;
+
+	
+	if( fabs( distance ) < min_force_distance )
+	{
+		x_speed = 0;
+		y_speed = 0;
+	}
+
+	if( max_force_distance )
+	{
+		if( fabs( distance ) >= max_force_distance )
+		{
+			x_speed = 0;
+			y_speed = 0;
+		}
+	}
+
+	if( fabs( distance ) >= falloff_distance )
+	{
+		float distance_multiplier = sqrt( 1/distance );
+		x_speed *= distance_multiplier;
+		y_speed *= distance_multiplier;
+	}
+
+	mob->addXSpeed( x_speed );
+	mob->addYSpeed( y_speed );	
 }
 
-float Gravity::getPull( float obj_pos, float grav_pos, double multiplier )
+float Gravity::getDistance( Atom* atom )
 {
-	float distance = obj_pos-grav_pos;
-	if( fabs( distance ) < falloff )
-	{
-		return acceleration*multiplier*sign( distance );
-	}
-	else
-	{
-		return ( 1/sqrt( fabs( distance )))*acceleration*multiplier*sign( distance );
-	}
+	float x_displacement = holder->getXPos() - atom->getXPos();
+	float y_displacement = holder->getYPos() - atom->getYPos();
+
+	return sqrt( pow( x_displacement, 2) + pow( y_displacement, 2 ));
 }
 
 void Gravity::processGravity( double update_multiplier )
@@ -37,7 +61,7 @@ void Gravity::processGravity( double update_multiplier )
 }
 
 Gravity::Gravity( float accel, Atom* holder )
-	: acceleration( accel ), holder( holder )
+	: holder( holder ), acceleration( accel )
 {
 	gravity_wells().push_back( this );
 }

@@ -12,12 +12,14 @@ private:
 
 	Atom* holder; // What holds this?
 
-	float acceleration = 10; // How much pull does this gravity well have?
-	float falloff = 1; // What radius does the gravity start falling off?
+	float acceleration = 1; // How much pull does this gravity well have?
+	float falloff_distance = 1; // What radius does the gravity start falling off?
+	float min_force_distance = 1; // The distance from the gravity well where gravitation force begins
+	float max_force_distance = 0; // The maximum force distance from the gravity well, 0 for no cap
 
 	void gravitate( Mob* mob, double multiplier );
 
-	float getPull( float obj_pos, float grav_pos, double multiplier );
+	float getDistance( Atom* atom );
 
 public:
 	static void processGravity( double update_multiplier );
